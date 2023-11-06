@@ -7,9 +7,13 @@ WEB_URL = 'https://ksp.co.il/web/cat'
 
 def get_filtered_url(json_data, storage, ram):
     storage_url = get_ksp_url(json_data, storage, '012066')
-    ram_url = get_ksp_url(json_data, ram, '029').split('.')[-1]
-    return f"{WEB_URL}/{storage_url}..{ram_url}?sort=1"
-
+    ram_url = get_ksp_url(json_data, ram, '029')
+    if ram_url:
+        return f"{WEB_URL}/{storage_url}..{ram_url.split('.')[-1]}?sort=1"
+    elif storage_url:
+        return f"{WEB_URL}/{storage_url}?sort=1"
+    else:
+        return f"{WEB_URL}?sort=1"
 
 def get_ksp_url(json_data, wanted_name, cat_id):
     tags = json_data.get('result', {}).get('filter', {}).get(cat_id, {}).get('tags', {})
@@ -36,15 +40,14 @@ def get_item_info(item, model_data, brand):
     ram = tags.get('גודל זכרון', '')
     price = item.get('price', '')
     url = get_filtered_url(model_data, storage, ram)
-
-    return pack_data("ksp", brand, model, storage, ram, price, url)
+    if not ram and brand == 'apple':
+        ram = add_apple_ram(model)
+    return pack_data("ksp", brand, model.lower(), storage, ram, price, url)
 
 
 def get_ksp_items(brand, model):
-    driver = init_chrome()
     item_data = fetch_data("ksp", brand, model)
-    soup = fetch_and_parse(item_data[0]['url'], driver)
+    soup = playwright_fetch(item_data[0]['url'])
     json_data = json.loads(soup.find('pre').string)
-    driver.close()
 
     return json.dumps(get_items(json_data, brand), indent=4, ensure_ascii=False)

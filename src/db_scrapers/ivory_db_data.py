@@ -1,6 +1,6 @@
 from database.db_operations import add_brand, add_model, add_product
 from util.text_formatter import format_model_name, extract_english_text
-from util.data_handler import fetch_and_parse, add_apple_ram
+from util.data_handler import requests_fetch, add_apple_ram
 
 IVORY_URL = 'https://www.ivory.co.il/cellphones.html'
 
@@ -18,7 +18,7 @@ def extract_items_data(div, class_name):
 
 
 def find_items(url, filter_name):
-    soup = fetch_and_parse(url, driver=None)
+    soup = requests_fetch(url)
     filter_divs = soup.find_all('div', class_='col-12 filtercatalog')
     filter_div = find_filter(filter_divs, filter_name)
 

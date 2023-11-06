@@ -1,5 +1,5 @@
 import urllib
-from util.data_handler import fetch_and_parse, pack_data, define_storage_ram
+from util.data_handler import requests_fetch, pack_data, define_storage_ram
 from util.text_formatter import extract_model_name
 import json
 
@@ -36,7 +36,7 @@ def get_cheapest_items(products, brand, model):
 def scrape_products(search):
     encoded_search = urllib.parse.quote(f"'{search}'")
     url = f'https://www.bug.co.il/search?&q={encoded_search}&key=&filter=,-2_12_108,'
-    soup = fetch_and_parse(url, driver=None)
+    soup = requests_fetch(url)
     return soup.find_all('a', class_='bordered-product gray product-cube-inner-2 tpurl')
 
 
