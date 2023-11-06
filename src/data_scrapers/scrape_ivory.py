@@ -1,5 +1,5 @@
 from database.db_operations import fetch_data
-from util.data_handler import fetch_and_parse, pack_data
+from util.data_handler import requests_fetch, pack_data
 import json
 
 
@@ -10,7 +10,7 @@ def get_cheapest(prices):
 
 def scrape_products(item):
     url = item.get("url")
-    soup = fetch_and_parse(url, driver=None)
+    soup = requests_fetch(url)
     prices = soup.select("span.price , span.print-actual-price")
     storage = item.get("storage").upper()
     ram = item.get("ram").upper()

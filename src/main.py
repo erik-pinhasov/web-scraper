@@ -42,22 +42,20 @@ def make_clickable_both(val):
         return f'<a href="{url}">{price}</a>'
 
 
-def main(brand, model):
+def main(brand, model, websites):
     start = time.time()
     result_dict = {}
 
     def run_threads():
-        ksp_thread = threading.Thread(target=scrape_and_store, args=(brand, model, result_dict, 'ksp'))
-        ivory_thread = threading.Thread(target=scrape_and_store, args=(brand, model, result_dict, 'ivory'))
-        bug_thread = threading.Thread(target=scrape_and_store, args=(brand, model, result_dict, 'bug'))
+        threads = []
 
-        ksp_thread.start()
-        ivory_thread.start()
-        bug_thread.start()
+        for website in websites:
+            thread = threading.Thread(target=scrape_and_store, args=(brand, model, result_dict, website))
+            thread.start()
+            threads.append(thread)
 
-        ksp_thread.join()
-        ivory_thread.join()
-        bug_thread.join()
+        for thread in threads:
+            thread.join()
 
     run_threads()
 
@@ -78,12 +76,13 @@ def main(brand, model):
     with open('results.html', 'w') as file:
         file.write(html_table)
     end = time.time()
-    print(end-start)
+    print(end - start)
 
 
 if __name__ == "__main__":
-    brand = 'samsung'
-    model = 'galaxy s23 ultra'
+    brand = 'apple'
+    model = 'iphone 15 pro'
 
-    main(brand, model)
+    websites_to_scrape = ['bug', 'ivory', 'ksp']
 
+    main(brand, model, websites_to_scrape)
