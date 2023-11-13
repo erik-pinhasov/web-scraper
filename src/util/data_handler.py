@@ -1,4 +1,5 @@
 import re
+import urllib
 import requests
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
@@ -18,14 +19,21 @@ def define_storage_ram(brand, model, text):
         storage = next((match + 'gb' for match in matches if int(match) > 16), None)
         ram = next((match + 'gb' for match in matches if int(match) <= 16), None)
     if brand.lower() == 'apple':
-        ram = add_apple_ram(model)
+        ram = add_apple_ram(brand, model)
     return storage, ram
 
 
-def add_apple_ram(model_name):
-    if model_name.lower() in ['iphone 11', 'iphone 12', 'iphone 13', 'iphone 13 mini']:
+def update_lowest_price(storage, ram, price, url, lowest_prices):
+    if (storage, ram) not in lowest_prices or price < lowest_prices[(storage, ram)][0]:
+        lowest_prices[(storage, ram)] = (price, url)
+
+
+def add_apple_ram(brand, model):
+    if brand.lower() != 'apple':
+        return None
+    if model.lower() in ['iphone 11', 'iphone 12', 'iphone 13', 'iphone 13 mini']:
         return '4GB'
-    elif model_name.lower() in ['iphone 15 pro', 'iphone 15 pro max']:
+    elif model.lower() in ['iphone 15 pro', 'iphone 15 pro max']:
         return '8GB'
     else:
         return '6GB'
@@ -45,6 +53,12 @@ def pack_data(website, brand, model, storage, ram, min_price, url):
 
 def get_soup(content):
     return BeautifulSoup(content, 'html.parser')
+
+
+def scrape_url(url, param):
+    encoded = urllib.parse.quote(param)
+    url = f'{url}{encoded}'
+    return requests_fetch(url)
 
 
 def requests_fetch(url):

@@ -1,6 +1,10 @@
 import re
 
 
+def get_price_num(text):
+    return text.replace(',', '').replace('₪', '').strip()
+
+
 def extract_english_text(text):
     words = re.findall(r'[a-zA-Z]+', text)
     return ' '.join(words).lower()
