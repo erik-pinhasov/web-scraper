@@ -2,9 +2,9 @@ import threading
 import json
 import time
 
-from data_scrapers.scrape_ksp import get_ksp_items as scrape_ksp
-from data_scrapers.scrape_ivory import get_ivory_items as scrape_ivory
-from data_scrapers.scrape_bug import get_bug_items as scrape_bug
+from data_scrapers.scrape_ksp import get_ksp_items
+from data_scrapers.scrape_ivory import get_ivory_items
+from data_scrapers.scrape_bug import get_bug_items
 from pandas import DataFrame
 
 
@@ -14,11 +14,11 @@ def scrape_and_store(brand, model, result_dict, website):
     is_bug = (website == 'bug')
     try:
         if is_ksp:
-            products = json.loads(scrape_ksp(brand, model))
+            products = json.loads(get_ksp_items(brand, model))
         elif is_ivory:
-            products = json.loads(scrape_ivory(brand, model))
+            products = json.loads(get_ivory_items(brand, model))
         elif is_bug:
-            products = json.loads(scrape_bug(brand, model))
+            products = json.loads(get_bug_items(brand, model))
         for product in products:
             storage = product.get('storage', 'N/A')
             ram = product.get('ram', 'N/A')
@@ -43,7 +43,6 @@ def make_clickable_both(val):
 
 
 def main(brand, model, websites):
-    start = time.time()
     result_dict = {}
 
     def run_threads():
@@ -75,14 +74,15 @@ def main(brand, model, websites):
 
     with open('results.html', 'w') as file:
         file.write(html_table)
-    end = time.time()
-    print(end - start)
 
 
 if __name__ == "__main__":
-    brand = 'apple'
-    model = 'iphone 15 pro'
+    start = time.time()
+    brand = 'samsung'
+    model = 'galaxy s23 ultra'
 
     websites_to_scrape = ['bug', 'ivory', 'ksp']
 
     main(brand, model, websites_to_scrape)
+    end = time.time()
+    print(end - start)

@@ -41,7 +41,7 @@ def get_item_info(item, model_data, brand):
     price = item.get('price', '')
     url = get_filtered_url(model_data, storage, ram)
     if not ram and brand == 'apple':
-        ram = add_apple_ram(model)
+        ram = add_apple_ram(brand, model)
     return pack_data("ksp", brand, model.lower(), storage, ram, price, url)
 
 
