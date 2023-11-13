@@ -2,9 +2,9 @@ import threading
 import json
 import time
 
-from data_scrapers.scrape_ksp import get_ksp_items
-from data_scrapers.scrape_ivory import get_ivory_items
-from data_scrapers.scrape_bug import get_bug_items
+from phones_scrapers.scrape_ksp import get_ksp_items
+from phones_scrapers.scrape_ivory import get_ivory_items
+from phones_scrapers.scrape_bug import get_bug_items
 from pandas import DataFrame
 
 
@@ -77,12 +77,15 @@ def main(brand, model, websites):
 
 
 if __name__ == "__main__":
-    start = time.time()
-    brand = 'samsung'
-    model = 'galaxy s23 ultra'
+    start_time = time.time()
 
+    brand = 'apple'
+    model = 'iphone 15'
     websites_to_scrape = ['bug', 'ivory', 'ksp']
 
     main(brand, model, websites_to_scrape)
-    end = time.time()
-    print(end - start)
+
+    end_time = time.time()
+    execution_time = end_time - start_time
+
+    print(f"Execution time: {execution_time} seconds")
