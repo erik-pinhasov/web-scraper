@@ -2,7 +2,6 @@ import re
 import urllib
 import requests
 from bs4 import BeautifulSoup
-from playwright.sync_api import sync_playwright
 from util.text_formatter import remove_properties
 
 
@@ -67,16 +66,7 @@ def requests_fetch(url):
     return get_soup(content)
 
 
-def playwright_fetch(url):
-    with sync_playwright() as p:
-        browser = p.chromium.launch()
-        context = browser.new_context(user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-                                                 ' (KHTML, like Gecko) Chrome/94.0.4606.71"')
-        page = context.new_page()
-        page.goto(url)
-        content = page.content()
-
-        context.close()
-        browser.close()
-
-    return get_soup(content)
+def get_playwright_page(context, url):
+    page = context.new_page()
+    page.goto(url)
+    return get_soup(page.content())

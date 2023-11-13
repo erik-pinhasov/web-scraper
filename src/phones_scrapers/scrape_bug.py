@@ -1,4 +1,3 @@
-import urllib
 from util.data_handler import scrape_url, pack_data, define_storage_ram, update_lowest_price
 from util.text_formatter import extract_model_name, get_price_num
 import json
