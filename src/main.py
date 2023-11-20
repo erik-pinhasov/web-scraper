@@ -80,7 +80,7 @@ if __name__ == "__main__":
     start_time = time.time()
 
     brand = 'apple'
-    model = 'iphone 15'
+    model = 'iphone 14 plus'
     websites_to_scrape = ['bug', 'ivory', 'ksp']
 
     main(brand, model, websites_to_scrape)

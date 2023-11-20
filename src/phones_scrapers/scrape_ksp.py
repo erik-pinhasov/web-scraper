@@ -1,15 +1,16 @@
-from util.data_handler import get_playwright_page, pack_data, add_apple_ram
+from util.data_handler import *
 import json
 from playwright.sync_api import sync_playwright
+from util.text_formatter import add_apple_ram, format_model_name
 
-JSON_URL = 'https://ksp.co.il/m_action/api/category/'
+JSON_URL = 'https://ksp.co.il/m_action/api/'
 WEB_URL = 'https://ksp.co.il/web/cat'
-USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36(HTML, like Gecko) Chrome/94.0.4606.71'
 
 
 def get_filtered_url(json_data, storage, ram):
-    storage_url = get_ksp_url(json_data, storage, '012066')
-    ram_url = get_ksp_url(json_data, ram, '029')
+    storage_url = get_ksp_url(json_data, None, storage, '012066')
+    ram_url = get_ksp_url(json_data, None, ram, '029')
+
     if ram_url:
         return f"{WEB_URL}/{storage_url}..{ram_url.split('.')[-1]}?sort=1"
     elif storage_url:
@@ -18,50 +19,67 @@ def get_filtered_url(json_data, storage, ram):
         return f"{WEB_URL}?sort=1"
 
 
-def get_ksp_url(json_data, wanted, cat_id):
-    tags = json_data.get('result', {}).get('filter', {}).get(cat_id, {}).get('tags', {})
-    model = next((item for item in tags.values() if item.get('name').lower() == wanted.lower()), None)
+def compare_type(param, brand, model):
+    if 'gb' in param:
+        return param == model
+    else:
+        param = format_model_name(brand, param)
+        return param == model
+
+
+def get_ksp_url(json_data, brand, model, cat_id):
+    tags = json_data.get('filter', {}).get(cat_id, {}).get('tags', {})
+    model = next((item for item in tags.values() if compare_type(item.get('name').lower(), brand, model.lower())), None)
     return model['action'] if model else None
 
 
+def check_discount(context, items):
+    items_pids = ','.join(item['pid'] for item in items)
+    items_prices = get_json_data(context, f'{JSON_URL}bms/{items_pids}')
+
+    for item in items:
+        discount = items_prices.get(item['pid'], {}).get('discount')
+        item['price'] = discount.get('value') if discount else item['price']
+
+
 def get_items(model_data, brand):
-    items = model_data.get('result', {}).get('items', [])
+    items = model_data.get('items', [])
     lowest_prices = {}
 
     for item in items:
-        item_info = get_item_info(item, model_data, brand)
-        key = (item_info['model'], item_info['storage'], item_info['ram'])
-        lowest_prices[key] = min(lowest_prices.get(key, item_info), item_info, key=lambda x: x['price'])
+        model, storage, ram = get_item_properties(item.get('tags', {}), brand)
+        pid = str(item.get('uin', ''))
+        price = item.get('price', '')
+        url = get_filtered_url(model_data, storage, ram)
+        update_lowest_price(storage, ram, price, url, lowest_prices, pid)
 
-    return list(lowest_prices.values())
+    return [pack_data("ksp", brand, model, storage, ram, price, url, pid) for
+            (storage, ram), (price, url, pid) in lowest_prices.items()]
 
 
-def get_item_properties(tags):
-    return [tags.get('דגם', ''), tags.get('נפח אחסון', ''), tags.get('גודל זכרון', '')]
-
-
-def get_item_info(item, model_data, brand):
-    tags = item.get('tags', {})
-    model, storage, ram = get_item_properties(tags)
-    price = item.get('price', '')
-    url = get_filtered_url(model_data, storage, ram)
-    if not ram and brand == 'apple':
-        ram = add_apple_ram(brand, model)
-    return pack_data("ksp", brand, model.lower(), storage, ram, price, url)
+def get_item_properties(tags, brand):
+    model = tags.get('דגם', '')
+    storage = tags.get('נפח אחסון', '')
+    ram = tags.get('גודל זכרון', '')
+    return [format_model_name(brand, model), storage if storage else None, ram if ram else add_apple_ram(brand, model)]
 
 
 def get_json_data(context, url):
-    soup = get_playwright_page(context, url)
-    return json.loads(soup.find('pre').string)
+    soup = playwright_fetch(context, url)
+    return json.loads(soup.find('pre').string).get('result', {})
 
 
 def get_ksp_items(brand, model):
-    with sync_playwright() as p:
-        browser = p.chromium.launch()
-        context = browser.new_context(user_agent=USER_AGENT)
-        json_data = get_json_data(context, f'{JSON_URL}{"272..573"}')
-        model_url = get_ksp_url(json_data, model, '02261')
-        json_data = get_json_data(context, f'{JSON_URL}{model_url}')
-        context.close()
-        browser.close()
-    return json.dumps(get_items(json_data, brand), indent=4, ensure_ascii=False)
+    with sync_playwright() as pw:
+        browser, context = launch_playwright(pw)
+
+        json_data = get_json_data(context, f'{JSON_URL}category/{"272..573"}')
+        model_url = get_ksp_url(json_data, brand, model, '02261')
+
+        json_data = get_json_data(context, f'{JSON_URL}category/{model_url}')
+        products = get_items(json_data, brand)
+        check_discount(context, products)
+
+        close_playwright(browser, context)
+
+    return json.dumps(products, indent=4, ensure_ascii=False)
