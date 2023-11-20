@@ -1,44 +1,19 @@
-import re
 import urllib
 import requests
 from bs4 import BeautifulSoup
-from util.text_formatter import remove_properties
+
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36(HTML, like Gecko) Chrome/94.0.4606.71'
 
 
-def define_storage_ram(brand, model, text):
-    text = remove_properties(text, [brand, model])
-    pattern = r'\d+(?:tb)?'
-    matches = re.findall(pattern, text)
-    if any('tb' in item for item in matches):
-        storage = next((match for match in matches if 'tb' in match), None)
-        ram = next((match + 'gb' for match in matches if 'tb' not in match
-                    and int(match) <= 16), None)
-
-    else:
-        storage = next((match + 'gb' for match in matches if int(match) > 16), None)
-        ram = next((match + 'gb' for match in matches if int(match) <= 16), None)
-    if brand.lower() == 'apple':
-        ram = add_apple_ram(brand, model)
-    return storage, ram
+def update_lowest_price(storage, ram, price, url, lowest_prices, pid=None):
+    key = (storage, ram)
+    if pid and (key not in lowest_prices or price < lowest_prices[key][0]):
+        lowest_prices[key] = (price, url, pid)
+    elif not pid and (key not in lowest_prices or price < lowest_prices[key][0]):
+        lowest_prices[key] = (price, url)
 
 
-def update_lowest_price(storage, ram, price, url, lowest_prices):
-    if (storage, ram) not in lowest_prices or price < lowest_prices[(storage, ram)][0]:
-        lowest_prices[(storage, ram)] = (price, url)
-
-
-def add_apple_ram(brand, model):
-    if brand.lower() != 'apple':
-        return None
-    if model.lower() in ['iphone 11', 'iphone 12', 'iphone 13', 'iphone 13 mini']:
-        return '4GB'
-    elif model.lower() in ['iphone 15 pro', 'iphone 15 pro max']:
-        return '8GB'
-    else:
-        return '6GB'
-
-
-def pack_data(website, brand, model, storage, ram, min_price, url):
+def pack_data(website, brand, model, storage, ram, min_price, url, pid=None):
     return {
         "website": website,
         "brand": brand,
@@ -46,7 +21,8 @@ def pack_data(website, brand, model, storage, ram, min_price, url):
         "storage": storage,
         "ram": ram,
         "price": min_price,
-        "url": url
+        "url": url,
+        "pid": pid if pid else None
     }
 
 
@@ -54,10 +30,10 @@ def get_soup(content):
     return BeautifulSoup(content, 'html.parser')
 
 
-def scrape_url(url, param):
-    encoded = urllib.parse.quote(param)
-    url = f'{url}{encoded}'
-    return requests_fetch(url)
+def prepare_url(url, param):
+    param = param.replace(' ', '-')
+    param = urllib.parse.quote(f'"{param}"')
+    return f'{url}{param}'
 
 
 def requests_fetch(url):
@@ -66,7 +42,17 @@ def requests_fetch(url):
     return get_soup(content)
 
 
-def get_playwright_page(context, url):
+def playwright_fetch(context, url):
     page = context.new_page()
     page.goto(url)
     return get_soup(page.content())
+
+
+def launch_playwright(pw):
+    browser = pw.chromium.launch()
+    return browser, browser.new_context(user_agent=USER_AGENT)
+
+
+def close_playwright(browser, context):
+    context.close()
+    browser.close()
