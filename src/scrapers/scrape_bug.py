@@ -26,7 +26,7 @@ def get_cheapest_items(products, brand, model):
 
 
 def scrape_products(search):
-    url = prepare_url(SEARCH_URL, search.replace('plus', ''))
+    url = prepare_url(SEARCH_URL, search)
     soup = requests_fetch(url)
     return soup.find_all('a', class_='bordered-product gray product-cube-inner-2 tpurl')
 

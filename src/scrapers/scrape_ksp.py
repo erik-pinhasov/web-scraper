@@ -20,7 +20,7 @@ def get_filtered_url(json_data, storage, ram):
 
 
 def compare_type(param, brand, model):
-    if 'gb' in param:
+    if 'gb' or 'tb' in param:
         return param == model
     else:
         param = format_model_name(brand, param)
