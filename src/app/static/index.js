@@ -15,15 +15,17 @@ function updateModels(brand) {
             modelsMenuDiv.append('<input type="radio" name="model" value="' + model + '">' + model);
         });
         modelCon.show();
-        modelsMenuDiv.show();
     });
 }
 
 function getComparison(brand, model) {
+    $("#result-table").empty()
+    $(".loader").show()
     $.get("/get_comparison", { brand, model }, function(data) {
         var title = `<h2>Results for ${brand} ${model}</h2>`;
         var table = createTable(data);
-        $("#model-data").empty().append(title, table).show();
+        $(".loader").hide()
+        $("#result-table").append(title, table);
     });
 }
 
@@ -42,7 +44,7 @@ function createHeaderRow(thead) {
 
     var websites = ['ksp', 'ivory', 'bug'];
     for (var i = 0; i < websites.length; i++) {
-        var logo = '/static/' + websites[i] + '_logo.png';
+        var logo = '/static/images/' + websites[i] + '_logo.png';
         headerRow.append(`<th><img src="${logo}" alt="${websites[i]}"></th>`);
     }
 }
@@ -62,9 +64,10 @@ function createPriceRow(product, row) {
     var websites = ['ksp', 'ivory', 'bug'];
     for (var i = 0; i < websites.length; i++) {
         var website = websites[i];
-        var price = product[website + '_price'] + '₪';
+        var price = product[website + '_price'];
         var url = product[website + '_url'];
-        var toInsert = '<td>' + (price ? price : 'Not exist') + (url ? `<br><a href="${url}">Link</a>` : '') + '</td>';
+        var toInsert = '<td>' + (price ? price + ' ₪': 'Out of stock') +
+                        (url ? `<br><a href="${url}">Product Link</a>` : '') + '</td>';
         row.append(toInsert);
     }
 }
