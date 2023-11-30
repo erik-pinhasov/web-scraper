@@ -1,14 +1,123 @@
+body {
+    background: url('images/background.png') center/cover no-repeat fixed;
+    font-family: 'Arial', sans-serif;
+    margin: 20px;
+    text-align: center;
+}
+
+h3 {
+    color: #000;
+    font-size: 1.7em;
+    margin-bottom: 10px;
+}
+
+h2 {
+    color: #2c4d6d;
+    font-size: 2.2em;
+    margin-bottom: 15px;
+}
+
+#brand-menu, #models-menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#brand-menu button, #models-menu button {
+    width: 150px;
+}
+
+#table-container {
+    width: 50%;
+    margin: 0 auto;
+    margin-bottom: 80px;
+}
+
+#github-link {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-weight: bold;
+}
+
+th, td {
+    border: 3px solid #000;
+    padding: 15px;
+    text-align: center;
+}
+
+th {
+    background-color: #dfdddf;
+}
+
+tr:hover {
+    background-color: #dfdddf;
+}
+
+.brand-image {
+    margin: 10px;
+    transition: transform 0.3s;
+}
+
+.brand-image:hover {
+    transform: scale(1.1);
+}
+
+#model-button {
+    cursor: pointer;
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #3498db;
+    color: #000;
+    font-weight: bold;
+    border: 3px solid #000;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#model-button:hover {
+    background-color: #2980b9;
+    color: #fff;
+    transform: scale(1.1);
+}
+
 .loader {
-  margin: 50px auto auto auto;
-  border: 20px solid #EAF0F6;
-  border-radius: 50%;
-  border-top: 20px solid #FF7A59;
-  width: 100px;
-  height: 100px;
-  animation: spinner 4s linear infinite;
+    margin: 50px auto auto auto;
+    border: 20px solid #EAF0F6;
+    border-radius: 50%;
+    border-top: 20px solid #2c4d6d;
+    width: 100px;
+    height: 100px;
+    animation: spinner 4s linear infinite;
 }
 
 @keyframes spinner {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@media only screen and (max-width: 800px) {
+    body {
+        zoom: 50%;
+    }
+
+    #table-container {
+        width: 100%;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
 }

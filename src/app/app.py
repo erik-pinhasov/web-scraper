@@ -34,11 +34,10 @@ def get_comparison():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8000)
+    app.run(debug=True, host='0.0.0.0', port=8000)
 
 
 # TODO:
 # 1. models update file
 # 2. design
 # 3. deploy
-# 4. loading animation

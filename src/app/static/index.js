@@ -1,6 +1,11 @@
 $(document).ready(function() {
-    $(document).on('click', "input[name='model']", function() {
-        var brand = $("input[name='brand']:checked").val();
+    $(document).on('click', ".brand-image", function() {
+        var brand = $(this).data('brand');
+        updateModels(brand);
+    });
+
+    $(document).on('click', "#models-menu input[name='model']", function() {
+        var brand = $("input[class='brand-image']").data('brand');
         getComparison(brand, $(this).val());
     });
 });
@@ -12,25 +17,30 @@ function updateModels(brand) {
         modelsMenuDiv.empty();
 
         $.each(data.models, function(index, model) {
-            modelsMenuDiv.append('<input type="radio" name="model" value="' + model + '">' + model);
+            modelsMenuDiv.append('<input id="model-button" type="button" name="model" value="' + model + '">');
         });
         modelCon.show();
     });
 }
 
 function getComparison(brand, model) {
-    $("#result-table").empty()
-    $(".loader").show()
+    $("button").prop("disabled", true);
+
+    $("#result-table").empty();
+    $(".loader").show();
+
     $.get("/get_comparison", { brand, model }, function(data) {
-        var title = `<h2>Results for ${brand} ${model}</h2>`;
+        var title = `<h3>Results for ${brand} ${model}</h3>`;
         var table = createTable(data);
-        $(".loader").hide()
+        $(".loader").hide();
         $("#result-table").append(title, table);
+
+        $("button").prop("disabled", false);
     });
 }
 
 function createTable(data) {
-    var table = $('<table>').attr('border', '1');
+    var table = $('<table>');
     var thead = $('<thead>').appendTo(table);
     var tbody = $('<tbody>').appendTo(table);
     createHeaderRow(thead);
@@ -67,7 +77,7 @@ function createPriceRow(product, row) {
         var price = product[website + '_price'];
         var url = product[website + '_url'];
         var toInsert = '<td>' + (price ? price + ' ₪': 'Out of stock') +
-                        (url ? `<br><a href="${url}">Product Link</a>` : '') + '</td>';
+                        (url ? `<br><a href="${url}" target="_blank">Product Link</a>` : '') + '</td>';
         row.append(toInsert);
     }
 }

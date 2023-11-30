@@ -2,34 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="static/style.css">
     <title>Compare Phones Prices</title>
 </head>
 <body>
-    <h3>Welcome! Compare smartphones prices from 3 websites: KSP, Ivory, and Bug.</h3>
+    <h2>Compare smartphones prices from KSP, Ivory, and Bug</h2>
     <div id="brand-container">
-        <h2>Select a Brand:</h2>
+        <h3>Select a brand:</h3>
         <div id="brand-menu">
             {% for brand, models in phones_data.items() %}
-            <input type="radio" name="brand" value="{{ brand }}" onclick="updateModels('{{ brand }}')">
-            {{ brand }}
+            <input type="image" src="/static/images/{{ brand.lower() }}_logo.png" data-brand="{{ brand }}" class="brand-image">
             {% endfor %}
         </div>
     </div>
     <div id="model-container" style="display: none;">
-        <h2>Select a Model:</h2>
+        <h3>Select a model:</h3>
         {% for brand, models in phones_data.items() %}
         <div id="models-menu">
             <div id="{{ brand }}-models" style="display: none;"></div>
         </div>
         {% endfor %}
     </div>
-    <div id="result-table"></div>
-    <div class="loader" style="display: none;"></div>
+    <div id="table-container">
+        <div id="result-table"></div>
+        <div class="loader" style="display: none;"></div>
+    </div>
+    <a id="github-link" href="https://github.com/erik-pinhasov/web-scraper" target="_blank">View source code on GitHub</a>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="static/index.js"></script>
 </body>
-
-
 </html>
