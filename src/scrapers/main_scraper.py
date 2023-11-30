@@ -16,7 +16,7 @@ SCRAPE_FUNCTIONS = {
 
 
 def sort_dict(result_dict):
-    keys = sorted(result_dict.keys(), key=lambda x: ('TB' in x, x))
+    keys = sorted(result_dict.keys(), key=lambda x: (float('inf') if 'TB' in x else float(x.split('GB')[0]), x))
     sorted_dict = {i: result_dict[i] for i in keys}
     return sorted_dict
 
