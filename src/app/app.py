@@ -29,7 +29,7 @@ def get_models():
 def get_comparison():
     brand = request.args.get('brand')
     model = request.args.get('model')
-    result = scrape_websites(brand.lower(), model.lower())
+    result = scrape_websites(brand, model)
     return jsonify(result)
 
 

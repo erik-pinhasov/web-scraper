@@ -1,5 +1,6 @@
 {
   "Apple": [
+    "iPhone SE (3rd Gen) 2022",
     "iPhone 11",
     "iPhone 12",
     "iPhone 13",
@@ -12,20 +13,113 @@
     "iPhone 15 Pro",
     "iPhone 15 Pro Max"
   ],
+  "Realme": [
+    "11 Pro",
+    "11 Pro Plus",
+    "GT3",
+    "C55",
+    "10",
+    "10 Pro Plus",
+    "C21",
+    "C30s",
+    "GT Neo 3 150W"
+  ],
+  "Asus": [
+    "Zenfone 10",
+    "ROG Phone 6",
+    "ROG Phone 7"
+  ],
   "Samsung": [
-    "Galaxy S23 FE 5G",
-    "Samsung Galaxy Z Flip5",
+    "Galaxy S23 FE",
+    "Galaxy Z Flip5",
     "Galaxy Z Fold5",
     "Galaxy A24",
-    "Galaxy A34 5G",
+    "Galaxy A34",
     "Galaxy A14",
-    "Galaxy A54 5G",
-    "Galaxy M54 5G",
+    "Galaxy M54",
     "Galaxy S23 Plus",
     "Galaxy S23",
     "Galaxy S23 Ultra",
     "Galaxy A04",
     "Galaxy A04e",
-    "Galaxy A03"
+    "Galaxy A03",
+    "Galaxy S21 FE"
+  ],
+  "Xiaomi": [
+    "Redmi 13C",
+    "13T",
+    "13T Pro",
+    "Poco X5",
+    "Poco X5 Pro",
+    "Poco F5",
+    "Poco F5 Pro",
+    "Redmi Note 12",
+    "Redmi Note 12S",
+    "Redmi Note 12 Pro",
+    "Redmi Note 12 Pro",
+    "Redmi Note 12 Pro Plus",
+    "Redmi A2 Plus",
+    "Redmi 10A",
+    "Redmi 12",
+    "Redmi 12 NFC",
+    "Redmi 12C"
+  ],
+  "OnePlus": [
+    "11",
+    "10T",
+    "Nord 3",
+    "Nord N20 SE",
+    "Nord CE 3 Lite",
+    "9 Pro",
+    "10 Pro"
+  ],
+  "Oppo": [
+    "A18",
+    "A58",
+    "A17k",
+    "A57",
+    "A76",
+    "A78",
+    "A94",
+    "Reno 6",
+    "Reno7 Z",
+    "Reno7",
+    "Reno8 T",
+    "Reno 10",
+    "Reno 10 Pro"
+  ],
+  "Honor": [
+    "Magic4 Pro"
+  ],
+  "vivo": [
+    "Y21",
+    "Y33s",
+    "Y36",
+    "Y76",
+    "V23",
+    "V25",
+    "V29 Lite"
+  ],
+  "Nokia": [
+    "C32",
+    "2660 Flip",
+    "G11"
+  ],
+  "EasyPhone": [
+    "NP 44",
+    "NP04"
+  ],
+  "Google": [
+    "Pixel 8",
+    "Pixel 7a",
+    "Pixel 7",
+    "Pixel 6a",
+    "Pixel 6"
+  ],
+  "Victurio": [
+    "Flip"
+  ],
+  "Slider": [
+    "W70"
   ]
 }

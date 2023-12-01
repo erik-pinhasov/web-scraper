@@ -1,11 +1,13 @@
+var reqInProgress = false;
+
 $(document).ready(function() {
+    var brand;
     $(document).on('click', ".brand-image", function() {
-        var brand = $(this).data('brand');
+        brand = $(this).data('brand');
         updateModels(brand);
     });
 
     $(document).on('click', "#models-menu input[name='model']", function() {
-        var brand = $("input[class='brand-image']").data('brand');
         getComparison(brand, $(this).val());
     });
 });
@@ -24,8 +26,11 @@ function updateModels(brand) {
 }
 
 function getComparison(brand, model) {
-    $("button").prop("disabled", true);
+    if (reqInProgress) {
+        return;
+    }
 
+    reqInProgress = true;
     $("#result-table").empty();
     $(".loader").show();
 
@@ -35,9 +40,10 @@ function getComparison(brand, model) {
         $(".loader").hide();
         $("#result-table").append(title, table);
 
-        $("button").prop("disabled", false);
+        reqInProgress = false;
     });
 }
+
 
 function createTable(data) {
     var table = $('<table>');

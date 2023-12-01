@@ -12,7 +12,8 @@
         <h3>Select a brand:</h3>
         <div id="brand-menu">
             {% for brand, models in phones_data.items() %}
-            <input type="image" src="/static/images/{{ brand.lower() }}_logo.png" data-brand="{{ brand }}" class="brand-image">
+            <input type="image" src="/static/images/{{ brand.lower() }}_logo.png" data-brand="{{ brand }}"
+                   class="brand-image" alt="{{ brand }}">
             {% endfor %}
         </div>
     </div>

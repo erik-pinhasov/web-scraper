@@ -6,11 +6,11 @@ def get_price_num(text):
 
 
 def remove_properties(text, to_remove):
-    special_chars = ['-', ':', ' 4g', ' 5g', 'ram']
-    to_remove = [prop.lower() for prop in to_remove]
+    special_chars = ['-', ':', ' 4g', ' 5g', 'ram', '4G', '5G', 'RAM', '‏']
+    to_remove = [prop for prop in to_remove]
     to_remove.extend(special_chars)
 
-    non_properties = text.lower().strip()
+    non_properties = text.strip()
     for prop in to_remove:
         non_properties = non_properties.replace(prop, ' ').strip()
 
@@ -19,22 +19,29 @@ def remove_properties(text, to_remove):
 
 def format_model_name(brand, model):
     model = remove_properties(model, [brand])
-    patterns = [r'\d+(?:tb|gb)?\+\d+(?:tb|gb)?', r'\b\d+(?:tb|gb)\b', r'בצבע\s+(.+)', r'\bsm \w+\s*',
-                r'[\u0590-\u05FF]+']
+    patterns = [
+        r'\d+(?:TB|GB)?\+\d+(?:TB|GB)?',
+        r'\b\d+(?:TB|GB)\b',
+        r'בצבע\s+(.+)',
+        r'\bsm \w+\s*',
+        r'[\u0590-\u05FF]+'
+    ]
     for pattern in patterns:
         model = re.sub(pattern, '', model).strip()
     if '+' in model:
-        model = model.replace('+', '') + ' plus'
+        model = model.replace('+', '') + ' Plus'
     return model.strip()
+
+# TODO: "(3rd Gen) 2022" "150W" add those patterns
 
 
 def define_storage_ram(brand, model, text):
     text = remove_properties(text, [brand, model])
-    pattern = r'(\d+(?:\+\d+)?(?:tb|gb))'
+    pattern = r'(\d+(?:\+\d+)?(?:TB|GB))'
     matches = re.findall(pattern, text)
-    if any('tb' in item for item in matches):
-        storage = next((match for match in matches if 'tb' in match), None)
-        ram = next((match for match in matches if 'tb' not in match and int(match[:-2]) <= 16), None)
+    if any('TB' in item for item in matches):
+        storage = next((match for match in matches if 'TB' in match), None)
+        ram = next((match for match in matches if 'TB' not in match and int(match[:-2]) <= 16), None)
 
     else:
         storage = next((match for match in matches if int(match[:-2]) > 16), None)
