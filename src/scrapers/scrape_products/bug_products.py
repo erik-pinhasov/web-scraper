@@ -31,6 +31,6 @@ def scrape_products(search):
     return soup.find_all('a', class_='bordered-product gray product-cube-inner-2 tpurl')
 
 
-def get_bug_items(brand, model):
+def get_bug_products(brand, model):
     items = scrape_products(f'{brand} {model}')
     return json.dumps(get_cheapest_items(items, brand, model), indent=4, ensure_ascii=False)

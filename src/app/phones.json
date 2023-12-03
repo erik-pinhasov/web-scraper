@@ -1,125 +1,153 @@
 {
-  "Apple": [
-    "iPhone SE (3rd Gen) 2022",
-    "iPhone 11",
-    "iPhone 12",
-    "iPhone 13",
-    "iPhone 14",
-    "iPhone 14 Plus",
-    "iPhone 14 Pro",
-    "iPhone 14 Pro Max",
-    "iPhone 15",
-    "iPhone 15 Plus",
-    "iPhone 15 Pro",
-    "iPhone 15 Pro Max"
+  "EasyPhone": [
+    "NP 01 Plus",
+    "NP 44",
+    "NP04"
+  ],
+  "vivo": [
+    "Y76",
+    "Y36",
+    "V25",
+    "V23",
+    "Y21",
+    "Y33s",
+    "V29 Lite"
+  ],
+  "Samsung": [
+    "Galaxy S23 FE",
+    "Galaxy A54",
+    "Galaxy S22 Ultra",
+    "Galaxy S23",
+    "Galaxy A03",
+    "Galaxy S21 FE",
+    "Galaxy S20 FE",
+    "Galaxy S23 Ultra",
+    "Galaxy A04e",
+    "Galaxy Z Flip5",
+    "Galaxy M54",
+    "Galaxy Z Fold5",
+    "Galaxy A04E",
+    "Galaxy A24",
+    "Galaxy A04",
+    "Galaxy A14",
+    "Galaxy A73",
+    "Galaxy S22",
+    "Galaxy S23 Plus",
+    "Galaxy A34"
+  ],
+  "Blackview": [
+    "A80 Plus",
+    "BV6300 Pro",
+    "BV4900 Pro"
+  ],
+  "Oppo": [
+    "A58",
+    "A94",
+    "A57",
+    "Reno7 Z",
+    "Reno 10",
+    "Reno 6",
+    "Reno 10 Pro",
+    "Reno10",
+    "Reno8 T",
+    "A78",
+    "A18",
+    "Reno7",
+    "Reno10 Pro",
+    "A17k",
+    "A76"
   ],
   "Realme": [
     "11 Pro",
-    "11 Pro Plus",
+    "GT Neo 3",
+    "C21",
+    "10 Pro Plus",
+    "10",
     "GT3",
     "C55",
-    "10",
-    "10 Pro Plus",
-    "C21",
-    "C30s",
-    "GT Neo 3 150W"
+    "C30s"
+  ],
+  "OnePlus": [
+    "Nord CE 3 Lite",
+    "10T",
+    "9 Pro",
+    "10 Pro",
+    "8T",
+    "Nord CE 2 Lite",
+    "Nord N20 SE",
+    "Nord 3",
+    "11"
+  ],
+  "Victurio": [
+    "Flip"
+  ],
+  "Nothing": [
+    "NOTHING Phone (2)"
   ],
   "Asus": [
     "Zenfone 10",
     "ROG Phone 6",
     "ROG Phone 7"
   ],
-  "Samsung": [
-    "Galaxy S23 FE",
-    "Galaxy Z Flip5",
-    "Galaxy Z Fold5",
-    "Galaxy A24",
-    "Galaxy A34",
-    "Galaxy A14",
-    "Galaxy M54",
-    "Galaxy S23 Plus",
-    "Galaxy S23",
-    "Galaxy S23 Ultra",
-    "Galaxy A04",
-    "Galaxy A04e",
-    "Galaxy A03",
-    "Galaxy S21 FE"
-  ],
-  "Xiaomi": [
-    "Redmi 13C",
-    "13T",
-    "13T Pro",
-    "Poco X5",
-    "Poco X5 Pro",
-    "Poco F5",
-    "Poco F5 Pro",
-    "Redmi Note 12",
-    "Redmi Note 12S",
-    "Redmi Note 12 Pro",
-    "Redmi Note 12 Pro",
-    "Redmi Note 12 Pro Plus",
-    "Redmi A2 Plus",
-    "Redmi 10A",
-    "Redmi 12",
-    "Redmi 12 NFC",
-    "Redmi 12C"
-  ],
-  "OnePlus": [
-    "11",
-    "10T",
-    "Nord 3",
-    "Nord N20 SE",
-    "Nord CE 3 Lite",
-    "9 Pro",
-    "10 Pro"
-  ],
-  "Oppo": [
-    "A18",
-    "A58",
-    "A17k",
-    "A57",
-    "A76",
-    "A78",
-    "A94",
-    "Reno 6",
-    "Reno7 Z",
-    "Reno7",
-    "Reno8 T",
-    "Reno 10",
-    "Reno 10 Pro"
-  ],
-  "Honor": [
-    "Magic4 Pro"
-  ],
-  "vivo": [
-    "Y21",
-    "Y33s",
-    "Y36",
-    "Y76",
-    "V23",
-    "V25",
-    "V29 Lite"
+  "Apple": [
+    "iPhone 15 Pro",
+    "iPhone 12",
+    "iPhone 14 Pro Max",
+    "iPhone 15 Plus",
+    "iPhone 15 Pro Max",
+    "iPhone SE (3rd Gen)",
+    "iPhone 11",
+    "iPhone 14 Plus",
+    "iPhone 14",
+    "iPhone 14 Pro",
+    "iPhone 15",
+    "iPhone 13"
   ],
   "Nokia": [
     "C32",
+    "105",
+    "G11",
     "2660 Flip",
-    "G11"
+    "110",
+    "NOKIA 8210",
+    "8210"
   ],
-  "EasyPhone": [
-    "NP 44",
-    "NP04"
+  "Phoneline": [
+    "F34",
+    "Fhoneline F33"
   ],
-  "Google": [
-    "Pixel 8",
-    "Pixel 7a",
-    "Pixel 7",
-    "Pixel 6a",
-    "Pixel 6"
-  ],
-  "Victurio": [
-    "Flip"
+  "Xiaomi": [
+    "Redmi Note 12 Pro",
+    "Redmi 12C",
+    "Poco F5",
+    "13T Pro",
+    "Redmi 10A",
+    "Redmi Note 12S",
+    "Note 12S",
+    "13T",
+    "Poco X5 Pro",
+    "Poco F5 Pro",
+    "Redmi 12 NFC",
+    "Redmi 13C",
+    "Redmi Note 12",
+    "Poco X5",
+    "Redmi Note 12 Pro Plus",
+    "Redmi A2 Plus",
+    "Redmi 12"
   ],
   "Slider": [
     "W70"
+  ],
+  "Google": [
+    "Pixel 6",
+    "Pixel 7A",
+    "Pixel 7",
+    "Pixel 8 Pro",
+    "Pixel Fold",
+    "Pixel 8",
+    "Pixel 6A"
+  ],
+  "Honor": [
+    "Magic4 Pro"
   ]
 }

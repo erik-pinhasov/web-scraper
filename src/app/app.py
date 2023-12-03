@@ -1,6 +1,7 @@
 import json
 from flask import Flask, render_template, jsonify, request
-from scrapers.main_scraper import scrape_websites
+from scrapers.compare_scraper import run_compare_scraper
+from scrapers.models_scraper import run_models_scraper
 
 
 def read_phones_file():
@@ -29,15 +30,9 @@ def get_models():
 def get_comparison():
     brand = request.args.get('brand')
     model = request.args.get('model')
-    result = scrape_websites(brand, model)
+    result = run_compare_scraper(brand, model)
     return jsonify(result)
 
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8000)
-
-
-# TODO:
-# 1. models update file
-# 2. design
-# 3. deploy

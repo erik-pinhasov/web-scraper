@@ -2,16 +2,16 @@ import json
 import concurrent.futures
 from concurrent.futures import ThreadPoolExecutor
 from collections import defaultdict
-from scrapers.scrape_ksp import get_ksp_items
-from scrapers.scrape_ivory import get_ivory_items
-from scrapers.scrape_bug import get_bug_items
+from scrapers.scrape_products.ksp_products import get_ksp_products
+from scrapers.scrape_products.ivory_products import get_ivory_products
+from scrapers.scrape_products.bug_products import get_bug_products
 
 
 WEBSITES = ['bug', 'ivory', 'ksp']
 SCRAPE_FUNCTIONS = {
-    'ksp': get_ksp_items,
-    'ivory': get_ivory_items,
-    'bug': get_bug_items,
+    'ksp': get_ksp_products,
+    'ivory': get_ivory_products,
+    'bug': get_bug_products,
 }
 
 
@@ -46,7 +46,7 @@ def store_results(brand, model, website, result_dict):
         process_product(product, result_dict, website)
 
 
-def scrape_websites(brand, model):
+def run_compare_scraper(brand, model):
     result_dict = defaultdict(lambda: {})
 
     with ThreadPoolExecutor() as executor:
@@ -55,7 +55,7 @@ def scrape_websites(brand, model):
         for thread in concurrent.futures.as_completed(threads):
             try:
                 thread.result()
-            except Exception:
-                pass
+            except Exception as e:
+                print(f'Error during compare scraper: {str(e)}')
 
     return sort_dict(result_dict)

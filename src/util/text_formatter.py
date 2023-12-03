@@ -24,15 +24,15 @@ def format_model_name(brand, model):
         r'\b\d+(?:TB|GB)\b',
         r'בצבע\s+(.+)',
         r'\bsm \w+\s*',
-        r'[\u0590-\u05FF]+'
+        r'[\u0590-\u05FF]+',
+        r'\d+W$',
+        r'20[0-9]{2}$'
     ]
     for pattern in patterns:
         model = re.sub(pattern, '', model).strip()
     if '+' in model:
         model = model.replace('+', '') + ' Plus'
     return model.strip()
-
-# TODO: "(3rd Gen) 2022" "150W" add those patterns
 
 
 def define_storage_ram(brand, model, text):

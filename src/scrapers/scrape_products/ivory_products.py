@@ -40,7 +40,7 @@ def get_items_data(soup, brand, model):
             (storage, ram), (price, url) in lowest_prices.items()]
 
 
-def get_ivory_items(brand, model):
+def get_ivory_products(brand, model):
     url = prepare_url(SEARCH_URL, f'{brand.replace("xiaomi", "")} {model.replace("plus", "")}')
     soup = requests_fetch(url)
     product_ids = get_product_ids(soup, brand, model)

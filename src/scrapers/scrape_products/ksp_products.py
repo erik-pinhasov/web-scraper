@@ -3,7 +3,7 @@ import json
 from playwright.sync_api import sync_playwright
 from util.text_formatter import add_apple_ram, format_model_name
 
-JSON_URL = 'https://ksp.co.il/m_action/api/'
+JSON_URL = 'https://ksp.co.il/m_action/api'
 WEB_URL = 'https://ksp.co.il/web/cat'
 
 
@@ -35,7 +35,7 @@ def get_ksp_url(json_data, brand, model, cat_id):
 
 def check_discount(context, items):
     items_pids = ','.join(item['pid'] for item in items)
-    items_prices = get_json_data(context, f'{JSON_URL}bms/{items_pids}')
+    items_prices = get_json_data(context, f'{JSON_URL}/bms/{items_pids}')
 
     for item in items:
         discount = items_prices.get(item['pid'], {}).get('discount')
@@ -69,17 +69,19 @@ def get_json_data(context, url):
     return json.loads(soup.find('pre').string).get('result', {})
 
 
-def get_ksp_items(brand, model):
+def get_ksp_products(brand, model):
     with sync_playwright() as pw:
         browser, context = launch_playwright(pw)
 
-        json_data = get_json_data(context, f'{JSON_URL}category/{"272..573"}')
+        json_data = get_json_data(context, f'{JSON_URL}/category/{"272..573"}')
         model_url = get_ksp_url(json_data, brand, model, '02261')
 
-        json_data = get_json_data(context, f'{JSON_URL}category/{model_url}')
+        json_data = get_json_data(context, f'{JSON_URL}/category/{model_url}')
         products = get_items(json_data, brand)
         check_discount(context, products)
 
         close_playwright(browser, context)
 
     return json.dumps(products, indent=4, ensure_ascii=False)
+
+print(get_ksp_products('Samsung', 'Galaxy S23'))
