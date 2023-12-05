@@ -1,30 +1,30 @@
 body {
     background: url('images/background.png') center/cover no-repeat fixed;
-    font-family: 'Arial', sans-serif;
-    margin: 20px;
+    font-family: cursive;
+    margin: 10px;
     text-align: center;
 }
 
-h3 {
-    color: #000;
-    font-size: 1.7em;
-    margin-bottom: 10px;
+@font-face {
+    font-family: 'ScholarlyAmbition';
+    src: url('/static/ScholarlyAmbition.ttf') format('truetype');
 }
 
 h2 {
-    color: #2c4d6d;
-    font-size: 2.2em;
-    margin-bottom: 15px;
+    color: black;
+    font-weight: bold;
+    font-size: 2.7em;
+    margin: 50px auto 10px auto;
 }
 
-#brand-menu, #models-menu {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-#brand-menu button, #models-menu button {
-    width: 150px;
+h3 {
+    font-family: 'ScholarlyAmbition', sans-serif;
+    color: #462167;
+    font-size: 3em;
+    margin: 50px auto 10px auto;
+    text-shadow:
+        -1px -1px 0 #fff, 1px -1px 0 #fff,
+        -1px 1px 0 #fff, 1px 1px 0 #fff;
 }
 
 #table-container {
@@ -55,10 +55,12 @@ th, td {
     border: 3px solid #000;
     padding: 15px;
     text-align: center;
+    font-size: 1.1em;
 }
 
 th {
     background-color: #dfdddf;
+    font-size: 1.3em;
 }
 
 tr:hover {
@@ -66,8 +68,11 @@ tr:hover {
 }
 
 .brand-image {
-    margin: 10px;
     transition: transform 0.3s;
+    width: 150px;
+    height: 60px;
+    object-fit: contain;
+    margin: 15px;
 }
 
 .brand-image:hover {
@@ -116,8 +121,11 @@ tr:hover {
         width: 100%;
     }
 
-    img {
-        max-width: 100%;
-        height: auto;
+    .brand-image {
+        transition: transform 0.3s;
+        width: 100px;
+        height: 40px;
+        object-fit: contain;
+        margin: 10px;
     }
 }

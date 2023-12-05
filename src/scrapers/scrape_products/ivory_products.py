@@ -7,6 +7,7 @@ COMP_URL = 'https://www.ivory.co.il/catalog_compare.php?ids='
 
 
 def get_product_ids(soup, brand, model):
+    # Scrape matching products url IDs - used in first scrape.
     unique_prices = {}
 
     for item in soup.find_all('a', class_='row product-anchor'):
@@ -19,11 +20,13 @@ def get_product_ids(soup, brand, model):
 
 
 def get_item_properties(soup):
+    # Get properties (name, price, storage, ram) of items from the given soup.
     return [soup.select('div.description'), soup.select('span.d-inline-block'),
             soup.select('div.table_row.id1227'), soup.select('div.table_row.id4388')]
 
 
 def get_items_data(soup, brand, model):
+    # Scrape data for items matching the specified brand and model - used in second scrape.
     names, prices, storages, rams = get_item_properties(soup)
     lowest_prices = {}
 
@@ -40,11 +43,18 @@ def get_items_data(soup, brand, model):
             (storage, ram), (price, url) in lowest_prices.items()]
 
 
-def get_ivory_items(brand, model):
-    url = prepare_url(SEARCH_URL, f'{brand.replace("xiaomi", "")} {model.replace("plus", "")}')
-    soup = requests_fetch(url)
-    product_ids = get_product_ids(soup, brand, model)
+def get_ivory_products(brand, model):
+    # Get product information for a model with all storage versions available from the Ivory website.
+    try:
+        model = model.replace("Fold5", "Fold 5")
+        url = prepare_url(SEARCH_URL, f'{brand.replace("Xiaomi", "")} {model}')
+        soup = requests_fetch(url)
+        product_ids = get_product_ids(soup, brand, model)
 
-    soup = requests_fetch(f'{COMP_URL}{product_ids}')
-    products = get_items_data(soup, brand, model)
-    return json.dumps(products, indent=4, ensure_ascii=False)
+        soup = requests_fetch(f'{COMP_URL}{product_ids}')
+        products = get_items_data(soup, brand, model)
+        return json.dumps(products, indent=4, ensure_ascii=False)
+
+    except Exception as e:
+        print(f"Error in get_ivory_products: {str(e)}")
+        return json.dumps([], indent=4, ensure_ascii=False)

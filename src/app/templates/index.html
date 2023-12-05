@@ -7,29 +7,45 @@
     <title>Compare Phones Prices</title>
 </head>
 <body>
+    <!-- Header Section -->
     <h2>Compare smartphones prices from KSP, Ivory, and Bug</h2>
+
+    <h3>Select a brand:</h3>
+    <!-- Brand Selection Section -->
     <div id="brand-container">
-        <h3>Select a brand:</h3>
-        <div id="brand-menu">
-            {% for brand, models in phones_data.items() %}
-            <input type="image" src="/static/images/{{ brand.lower() }}_logo.png" data-brand="{{ brand }}"
-                   class="brand-image" alt="{{ brand }}">
-            {% endfor %}
-        </div>
-    </div>
-    <div id="model-container" style="display: none;">
-        <h3>Select a model:</h3>
+        <!-- Iterate through brands -->
         {% for brand, models in phones_data.items() %}
-        <div id="models-menu">
-            <div id="{{ brand }}-models" style="display: none;"></div>
-        </div>
+            <input
+                type="image"
+                src="/static/images/{{ brand.lower() }}_logo.png"
+                data-brand="{{ brand }}"
+                class="brand-image"
+                alt="{{ brand }}"
+            >
         {% endfor %}
     </div>
+
+    <h3 id="select-model" style="display: none;">Select a model:</h3>
+    <!-- Model Selection Section -->
+    <div id="model-container" style="display: none;">
+        <!-- Iterate through brands -->
+        {% for brand, models in phones_data.items() %}
+            <div id="{{ brand }}-models" style="display: none;"></div>
+        {% endfor %}
+    </div>
+
+    <!-- Result Table Section -->
     <div id="table-container">
         <div id="result-table"></div>
         <div class="loader" style="display: none;"></div>
     </div>
-    <a id="github-link" href="https://github.com/erik-pinhasov/web-scraper" target="_blank">View source code on GitHub</a>
+
+    <!-- GitHub Link -->
+    <a id="github-link" href="https://github.com/erik-pinhasov/web-scraper" target="_blank">
+        View source code on GitHub
+    </a>
+
+    <!-- JavaScript Dependencies -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="static/index.js"></script>
 </body>

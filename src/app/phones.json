@@ -1,125 +1,150 @@
 {
+  "Samsung": [
+    "Galaxy A03",
+    "Galaxy A04",
+    "Galaxy A04E",
+    "Galaxy A04e",
+    "Galaxy A14",
+    "Galaxy A24",
+    "Galaxy A34",
+    "Galaxy A54",
+    "Galaxy A73",
+    "Galaxy M54",
+    "Galaxy S20 FE",
+    "Galaxy S21 FE",
+    "Galaxy S22",
+    "Galaxy S22 Ultra",
+    "Galaxy S23",
+    "Galaxy S23 FE",
+    "Galaxy S23 Plus",
+    "Galaxy S23 Ultra",
+    "Galaxy Z Flip5",
+    "Galaxy Z Fold5"
+  ],
+  "Xiaomi": [
+    "13T",
+    "13T Pro",
+    "Note 12S",
+    "Poco F5",
+    "Poco F5 Pro",
+    "Poco X5",
+    "Poco X5 Pro",
+    "Redmi 10A",
+    "Redmi 12",
+    "Redmi 12 NFC",
+    "Redmi 12C",
+    "Redmi 13C",
+    "Redmi A2 Plus",
+    "Redmi Note 12",
+    "Redmi Note 12 Pro",
+    "Redmi Note 12 Pro Plus",
+    "Redmi Note 12S"
+  ],
+  "Oppo": [
+    "A17k",
+    "A18",
+    "A57",
+    "A58",
+    "A76",
+    "A78",
+    "A94",
+    "Reno 10",
+    "Reno 10 Pro",
+    "Reno 6",
+    "Reno10",
+    "Reno10 Pro",
+    "Reno7",
+    "Reno7 Z",
+    "Reno8 T"
+  ],
   "Apple": [
-    "iPhone SE (3rd Gen) 2022",
     "iPhone 11",
     "iPhone 12",
     "iPhone 13",
     "iPhone 14",
     "iPhone 14 Plus",
     "iPhone 14 Pro",
-    "iPhone 14 Pro Max",
     "iPhone 15",
     "iPhone 15 Plus",
     "iPhone 15 Pro",
-    "iPhone 15 Pro Max"
+    "iPhone 15 Pro Max",
+    "iPhone SE (3rd Gen)"
   ],
   "Realme": [
-    "11 Pro",
-    "11 Pro Plus",
-    "GT3",
-    "C55",
     "10",
     "10 Pro Plus",
+    "11 Pro",
     "C21",
     "C30s",
-    "GT Neo 3 150W"
+    "C55",
+    "GT Neo 3",
+    "GT3"
   ],
-  "Asus": [
-    "Zenfone 10",
-    "ROG Phone 6",
-    "ROG Phone 7"
-  ],
-  "Samsung": [
-    "Galaxy S23 FE",
-    "Galaxy Z Flip5",
-    "Galaxy Z Fold5",
-    "Galaxy A24",
-    "Galaxy A34",
-    "Galaxy A14",
-    "Galaxy M54",
-    "Galaxy S23 Plus",
-    "Galaxy S23",
-    "Galaxy S23 Ultra",
-    "Galaxy A04",
-    "Galaxy A04e",
-    "Galaxy A03",
-    "Galaxy S21 FE"
-  ],
-  "Xiaomi": [
-    "Redmi 13C",
-    "13T",
-    "13T Pro",
-    "Poco X5",
-    "Poco X5 Pro",
-    "Poco F5",
-    "Poco F5 Pro",
-    "Redmi Note 12",
-    "Redmi Note 12S",
-    "Redmi Note 12 Pro",
-    "Redmi Note 12 Pro",
-    "Redmi Note 12 Pro Plus",
-    "Redmi A2 Plus",
-    "Redmi 10A",
-    "Redmi 12",
-    "Redmi 12 NFC",
-    "Redmi 12C"
+  "Nokia": [
+    "105",
+    "110",
+    "2660 Flip",
+    "8210",
+    "C32",
+    "G11",
+    "G42",
+    "NOKIA 8210"
   ],
   "OnePlus": [
-    "11",
     "10T",
-    "Nord 3",
-    "Nord N20 SE",
-    "Nord CE 3 Lite",
+    "11",
+    "8T",
     "9 Pro",
-    "10 Pro"
-  ],
-  "Oppo": [
-    "A18",
-    "A58",
-    "A17k",
-    "A57",
-    "A76",
-    "A78",
-    "A94",
-    "Reno 6",
-    "Reno7 Z",
-    "Reno7",
-    "Reno8 T",
-    "Reno 10",
-    "Reno 10 Pro"
-  ],
-  "Honor": [
-    "Magic4 Pro"
+    "Nord 3",
+    "Nord CE 2 Lite",
+    "Nord CE 3 Lite"
   ],
   "vivo": [
+    "V23",
+    "V25",
+    "V29 Lite",
     "Y21",
     "Y33s",
     "Y36",
-    "Y76",
-    "V23",
-    "V25",
-    "V29 Lite"
+    "Y76"
   ],
-  "Nokia": [
-    "C32",
-    "2660 Flip",
-    "G11"
+  "Google": [
+    "Pixel 6A",
+    "Pixel 7",
+    "Pixel 7A",
+    "Pixel 8",
+    "Pixel 8 Pro",
+    "Pixel Fold"
+  ],
+  "Blackview": [
+    "A80 Plus",
+    "BV4900 Pro",
+    "BV6300 Pro"
   ],
   "EasyPhone": [
+    "NP 01 Plus",
     "NP 44",
     "NP04"
   ],
-  "Google": [
-    "Pixel 8",
-    "Pixel 7a",
-    "Pixel 7",
-    "Pixel 6a",
-    "Pixel 6"
+  "Asus": [
+    "ROG Phone 6",
+    "ROG Phone 7",
+    "Zenfone 10"
+  ],
+  "Phoneline": [
+    "F34",
+    "Fhoneline F33"
+  ],
+  "Honor": [
+    "Magic4 Pro"
   ],
   "Victurio": [
     "Flip"
   ],
   "Slider": [
     "W70"
+  ],
+  "Nothing": [
+    "NOTHING Phone (2)"
   ]
 }
