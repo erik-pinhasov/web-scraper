@@ -20,7 +20,7 @@ def get_filtered_url(json_data, storage, ram):
 
 
 def compare_type(param, brand, model):
-    if 'gb' or 'tb' in param:
+    if 'gb' in param or 'tb' in param:
         return param == model
     else:
         param = format_model_name(brand, param)
@@ -83,5 +83,3 @@ def get_ksp_products(brand, model):
         close_playwright(browser, context)
 
     return json.dumps(products, indent=4, ensure_ascii=False)
-
-print(get_ksp_products('Samsung', 'Galaxy S23'))

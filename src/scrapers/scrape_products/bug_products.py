@@ -10,7 +10,6 @@ def get_items_data(products, brand, model):
     lowest_prices = {}
     for product in products:
         name = product.select_one('span.c1').text
-
         if model == format_model_name(brand, name):
             storage, ram = define_storage_ram(brand, model, name)
             price = get_price_num(product.select_one('span.c2 span').text)
@@ -32,5 +31,6 @@ def scrape_products(search):
 
 
 def get_bug_products(brand, model):
+    model = model.replace("Fold5", "Fold 5")
     items = scrape_products(f'{brand} {model}')
     return json.dumps(get_cheapest_items(items, brand, model), indent=4, ensure_ascii=False)

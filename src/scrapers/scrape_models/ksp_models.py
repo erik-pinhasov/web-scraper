@@ -7,25 +7,52 @@ from util.text_formatter import format_model_name
 KSP_URL = 'https://ksp.co.il/m_action/api/'
 
 
-def scrape_ksp(context, cat_id, url):
+def scrape_ksp_category(context, cat_id, url):
+    """
+    Scrape KSP category information.
+
+    Args:
+        context: Playwright context.
+        cat_id (str): Category ID.
+        url (str): URL for scraping.
+
+    Returns:
+        dict: Parsed JSON data.
+    """
     json_data = get_json_data(context, f'{KSP_URL}category/{url}')
     return json_data.get('filter', {}).get(cat_id, {}).get('tags', {})
 
 
 def scrape_brand_models(context, brand):
+    """
+    Scrape models for a specific brand.
+
+    Args:
+        context: Playwright context.
+        brand (str): Brand name.
+
+    Returns:
+        list: List of formatted model names.
+    """
     brand_name = brand.get('name')
     brand_url = brand.get('action')
 
-    models = scrape_ksp(context, '02261', brand_url)
+    models = scrape_ksp_category(context, '02261', brand_url)
     return [format_model_name(brand_name, model.get('name')) for model in models.values()]
 
 
 def get_ksp_models():
+    """
+    Retrieves brands and models names from KSP website.
+
+    Returns:
+        dict: Dictionary containing brands (key) and models (values).
+    """
     with sync_playwright() as pw:
         browser, context = launch_playwright(pw)
         result_data = {}
 
-        brands = scrape_ksp(context, '021', "272..573")
+        brands = scrape_ksp_category(context, '021', "272..573")
 
         for brand in brands.values():
             brand_models = scrape_brand_models(context, brand)

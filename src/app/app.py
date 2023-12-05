@@ -1,17 +1,18 @@
 import json
 from flask import Flask, render_template, jsonify, request
 from scrapers.compare_scraper import run_compare_scraper
-from scrapers.models_scraper import run_models_scraper
 
 
-def read_phones_file():
-    with open('phones.json', 'r') as file:
+def read_phones_file(file_path='phones.json'):
+    with open(file_path, 'r') as file:
         return json.load(file)
 
 
 app = Flask(__name__)
 phones_data = read_phones_file()
 app.json.sort_keys = False
+
+PHONES_FILE_PATH = 'phones.json'
 
 
 @app.route('/')
@@ -21,6 +22,7 @@ def index():
 
 @app.route('/get_models', methods=['GET'])
 def get_models():
+    # Get phone models for selected brand.
     brand = request.args.get('brand')
     models = phones_data.get(brand, [])
     return jsonify({'models': models})
@@ -28,9 +30,16 @@ def get_models():
 
 @app.route('/get_comparison', methods=['GET'])
 def get_comparison():
+    # Get phone comparison results for selected brand and model.
     brand = request.args.get('brand')
     model = request.args.get('model')
-    result = run_compare_scraper(brand, model)
+
+    try:
+        result = run_compare_scraper(brand, model)
+    except Exception as e:
+        app.logger.error(f"Error occurred during scraping: {e}")
+        result = {'error': 'An error occurred during scraping.'}
+
     return jsonify(result)
 
 

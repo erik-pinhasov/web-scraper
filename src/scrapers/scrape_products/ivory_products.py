@@ -41,7 +41,8 @@ def get_items_data(soup, brand, model):
 
 
 def get_ivory_products(brand, model):
-    url = prepare_url(SEARCH_URL, f'{brand.replace("xiaomi", "")} {model.replace("plus", "")}')
+    model = model.replace("Fold5", "Fold 5")
+    url = prepare_url(SEARCH_URL, f'{brand.replace("Xiaomi", "")} {model}')
     soup = requests_fetch(url)
     product_ids = get_product_ids(soup, brand, model)
 
