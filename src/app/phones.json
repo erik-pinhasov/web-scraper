@@ -90,15 +90,6 @@
     "G42",
     "NOKIA 8210"
   ],
-  "vivo": [
-    "V23",
-    "V25",
-    "V29 Lite",
-    "Y21",
-    "Y33s",
-    "Y36",
-    "Y76"
-  ],
   "OnePlus": [
     "10T",
     "11",
@@ -108,6 +99,15 @@
     "Nord CE 2 Lite",
     "Nord CE 3 Lite"
   ],
+  "vivo": [
+    "V23",
+    "V25",
+    "V29 Lite",
+    "Y21",
+    "Y33s",
+    "Y36",
+    "Y76"
+  ],
   "Google": [
     "Pixel 6A",
     "Pixel 7",
@@ -115,6 +115,11 @@
     "Pixel 8",
     "Pixel 8 Pro",
     "Pixel Fold"
+  ],
+  "Blackview": [
+    "A80 Plus",
+    "BV4900 Pro",
+    "BV6300 Pro"
   ],
   "EasyPhone": [
     "NP 01 Plus",
@@ -126,25 +131,20 @@
     "ROG Phone 7",
     "Zenfone 10"
   ],
-  "Blackview": [
-    "A80 Plus",
-    "BV4900 Pro",
-    "BV6300 Pro"
-  ],
   "Phoneline": [
     "F34",
     "Fhoneline F33"
   ],
-  "Nothing": [
-    "NOTHING Phone (2)"
-  ],
   "Honor": [
     "Magic4 Pro"
+  ],
+  "Victurio": [
+    "Flip"
   ],
   "Slider": [
     "W70"
   ],
-  "Victurio": [
-    "Flip"
+  "Nothing": [
+    "NOTHING Phone (2)"
   ]
 }

@@ -6,10 +6,12 @@ PATTERNS = [r'\d+(?:TB|GB)?\+\d+(?:TB|GB)?', r'\b\d+(?:TB|GB)\b', r'בצבע\s+(
 
 
 def get_price_num(text):
+    # Extracts and returns the numerical price from the given text.
     return text.replace(',', '').replace('₪', '').strip()
 
 
 def remove_properties(text, to_remove):
+    # Removes specified properties from the given text.
     to_remove = [prop for prop in to_remove]
     to_remove.extend(SPECIAL_CHARS)
 
@@ -21,6 +23,7 @@ def remove_properties(text, to_remove):
 
 
 def remove_duplicates(model):
+    # Removes duplicated words and chars from a given model.
     seen_words = set()
     unique_words = []
 
@@ -36,6 +39,8 @@ def remove_duplicates(model):
 
 
 def format_model_name(brand, model):
+    # Formats the model name by removing properties and patterns.
+    # Formatting in purpose of making one structure for all websites products names.
     model = remove_properties(model, [brand])
     for pattern in PATTERNS:
         model = re.sub(pattern, '', model).strip()
@@ -48,6 +53,7 @@ def format_model_name(brand, model):
 
 
 def define_storage_ram(brand, model, text):
+    # Process text for getting storage and RAM information.
     try:
         text = remove_properties(text, [brand, model])
         storage_and_ram_matches = find_storage_and_ram_matches(text)
@@ -71,11 +77,13 @@ def define_storage_ram(brand, model, text):
 
 
 def find_storage_and_ram_matches(text):
+    # Finds storage and RAM storage with regular expressions.
     pattern = r'(\d+(?:TB|GB)?|\d+\+\d+(?:TB|GB)?)'
     return re.findall(pattern, text)
 
 
 def extract_storage_and_ram(matches):
+    # Extracts storage and RAM information from the given text.
     if any('TB' in item for item in matches):
         storage = next((match for match in matches if 'TB' in match), None)
         ram = next((match for match in matches if 'TB' not in match and int(match[:-2]) <= 16), None)
@@ -87,6 +95,7 @@ def extract_storage_and_ram(matches):
 
 
 def add_apple_ram(brand, model):
+    # Only for apple models - adds RAM manually
     if brand.lower() != 'apple':
         return None
     if model.lower() in ['iphone 11', 'iphone 12', 'iphone 13', 'iphone 13 mini']:

@@ -6,6 +6,7 @@ USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36(HTML,
 
 
 def update_lowest_price(storage, ram, price, url, lowest_prices, pid=None):
+    # Updates the lowest price products for a specific storage and RAM combination.
     key = (storage, ram)
     if pid and (key not in lowest_prices or price < lowest_prices[key][0]):
         lowest_prices[key] = (price, url, pid)
@@ -14,6 +15,7 @@ def update_lowest_price(storage, ram, price, url, lowest_prices, pid=None):
 
 
 def pack_data(website, brand, model, storage, ram, min_price, url, pid=None):
+    # Packs product information into a dictionary.
     return {
         "website": website,
         "brand": brand,
@@ -27,32 +29,40 @@ def pack_data(website, brand, model, storage, ram, min_price, url, pid=None):
 
 
 def get_soup(content):
+    # BeautifulSoup page parser
     return BeautifulSoup(content, 'html.parser')
 
 
 def prepare_url(url, param):
+    # Prepares a URL by encoding the search parameter.
     param = param.replace(' ', '-')
     param = urllib.parse.quote(f'"{param}"')
     return f'{url}{param}'
 
 
 def requests_fetch(url):
+    # Fetches and returns the HTML content of the specified URL using requests library (use for BUG and Ivory).
     response = requests.get(url)
     content = response.content
     return get_soup(content)
 
 
 def playwright_fetch(context, url):
+    # Fetches and returns the HTML content of the specified URL using Playwright (use for KSP).
     page = context.new_page()
     page.goto(url)
     return get_soup(page.content())
 
 
+
+
 def launch_playwright(pw):
+    # Launches a Playwright browser
     browser = pw.chromium.launch()
     return browser, browser.new_context(user_agent=USER_AGENT)
 
 
 def close_playwright(browser, context):
+    # Closes the Playwright browser
     context.close()
     browser.close()

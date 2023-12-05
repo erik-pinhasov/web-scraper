@@ -6,7 +6,6 @@ from scrapers.scrape_products.ksp_products import get_ksp_products
 from scrapers.scrape_products.ivory_products import get_ivory_products
 from scrapers.scrape_products.bug_products import get_bug_products
 
-
 WEBSITES = ['bug', 'ivory', 'ksp']
 SCRAPE_FUNCTIONS = {
     'ksp': get_ksp_products,
@@ -15,21 +14,25 @@ SCRAPE_FUNCTIONS = {
 }
 
 
-def sort_dict(result_dict):
+def sort_product_dict(result_dict):
+    # Sort the product dictionary based on storage and RAM ascending.
     keys = sorted(result_dict.keys(), key=lambda x: (float('inf') if 'TB' in x else float(x.split('GB')[0]), x))
     sorted_dict = {i: result_dict[i] for i in keys}
     return sorted_dict
 
 
-def scrape(website, brand, model):
+def scrape_website(website, brand, model, result_dict):
+    # Scrape data from a website and store results of all websites in one dictionary.
     try:
         products = json.loads(SCRAPE_FUNCTIONS[website](brand, model))
-        return products
-    except Exception:
-        pass
+        for product in products:
+            process_product(product, result_dict, website)
+    except Exception as e:
+        print(f'Error during scraping from {website}: {str(e)}')
 
 
 def process_product(product, result_dict, website):
+    # Process product information and update the result dictionary with storage+RAM as keys (if exist).
     storage = product.get('storage', 'N/A')
     ram = product.get('ram', 'N/A')
     price = product.get('price', 'N/A')
@@ -40,17 +43,12 @@ def process_product(product, result_dict, website):
     result_dict[key][f'{website}_url'] = url
 
 
-def store_results(brand, model, website, result_dict):
-    products = scrape(website, brand, model)
-    for product in products:
-        process_product(product, result_dict, website)
-
-
 def run_compare_scraper(brand, model):
+    # Run the compare scraper for BUG, Ivory and KSP websites, with threads.
     result_dict = defaultdict(lambda: {})
 
     with ThreadPoolExecutor() as executor:
-        threads = [executor.submit(store_results, brand, model, website, result_dict) for website in WEBSITES]
+        threads = [executor.submit(scrape_website, website, brand, model, result_dict) for website in WEBSITES]
 
         for thread in concurrent.futures.as_completed(threads):
             try:
@@ -58,4 +56,4 @@ def run_compare_scraper(brand, model):
             except Exception as e:
                 print(f'Error during compare scraper: {str(e)}')
 
-    return sort_dict(result_dict)
+    return sort_product_dict(result_dict)

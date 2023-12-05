@@ -8,6 +8,7 @@ WEB_URL = 'https://ksp.co.il/web/cat'
 
 
 def get_filtered_url(json_data, storage, ram):
+    # Prepare URL of wanted model page (Regular website - not API)
     storage_url = get_ksp_url(json_data, None, storage, '012066')
     ram_url = get_ksp_url(json_data, None, ram, '029')
 
@@ -20,6 +21,7 @@ def get_filtered_url(json_data, storage, ram):
 
 
 def compare_type(param, brand, model):
+    # Check for matching param (model name or storage/RAM).
     if 'gb' in param or 'tb' in param:
         return param == model
     else:
@@ -27,13 +29,15 @@ def compare_type(param, brand, model):
         return param == model
 
 
-def get_ksp_url(json_data, brand, model, cat_id):
+def get_ksp_url(json_data, brand, param, cat_id):
+    # Get the matching URL for given param (model name or storage/RAM).
     tags = json_data.get('filter', {}).get(cat_id, {}).get('tags', {})
-    model = next((item for item in tags.values() if compare_type(item.get('name').lower(), brand, model.lower())), None)
+    model = next((item for item in tags.values() if compare_type(item.get('name').lower(), brand, param.lower())), None)
     return model['action'] if model else None
 
 
 def check_discount(context, items):
+    # Check for a discount - price appears in different URL.
     items_pids = ','.join(item['pid'] for item in items)
     items_prices = get_json_data(context, f'{JSON_URL}/bms/{items_pids}')
 
@@ -42,7 +46,8 @@ def check_discount(context, items):
         item['price'] = discount.get('value') if discount else item['price']
 
 
-def get_items(model_data, brand):
+def get_product_items(model_data, brand):
+    # Finds the cheapest item for each storage version of the model.
     items = model_data.get('items', [])
     lowest_prices = {}
 
@@ -58,6 +63,7 @@ def get_items(model_data, brand):
 
 
 def get_item_properties(tags, brand):
+    # Get product properties and return formatted details.
     model = tags.get('דגם', '')
     storage = tags.get('נפח אחסון', '')
     ram = tags.get('גודל זכרון', '')
@@ -65,21 +71,28 @@ def get_item_properties(tags, brand):
 
 
 def get_json_data(context, url):
+    # Scrape KSP whole url page (getting json from it API url).
     soup = playwright_fetch(context, url)
     return json.loads(soup.find('pre').string).get('result', {})
 
 
 def get_ksp_products(brand, model):
-    with sync_playwright() as pw:
-        browser, context = launch_playwright(pw)
+    # Get product information for a model with all storage versions available from the KSP website.
+    try:
+        with sync_playwright() as pw:
+            browser, context = launch_playwright(pw)
 
-        json_data = get_json_data(context, f'{JSON_URL}/category/{"272..573"}')
-        model_url = get_ksp_url(json_data, brand, model, '02261')
+            json_data = get_json_data(context, f'{JSON_URL}/category/{"272..573"}')
+            model_url = get_ksp_url(json_data, brand, model, '02261')
 
-        json_data = get_json_data(context, f'{JSON_URL}/category/{model_url}')
-        products = get_items(json_data, brand)
-        check_discount(context, products)
+            json_data = get_json_data(context, f'{JSON_URL}/category/{model_url}')
+            products = get_product_items(json_data, brand)
+            check_discount(context, products)
 
-        close_playwright(browser, context)
+            close_playwright(browser, context)
 
-    return json.dumps(products, indent=4, ensure_ascii=False)
+        return json.dumps(products, indent=4, ensure_ascii=False)
+
+    except Exception as e:
+        print(f"Error in get_ksp_products: {str(e)}")
+        return json.dumps([], indent=4, ensure_ascii=False)
