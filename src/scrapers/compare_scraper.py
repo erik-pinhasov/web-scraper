@@ -16,9 +16,14 @@ SCRAPE_FUNCTIONS = {
 
 def sort_product_dict(result_dict):
     # Sort the product dictionary based on storage and RAM ascending.
-    keys = sorted(result_dict.keys(), key=lambda x: (float('inf') if 'TB' in x else float(x.split('GB')[0]), x))
-    sorted_dict = {i: result_dict[i] for i in keys}
-    return sorted_dict
+    try:
+        keys = sorted(result_dict.keys(), key=lambda x: (float('inf') if 'TB' in x else float(x.split('GB')[0]), x))
+        sorted_dict = {i: result_dict[i] for i in keys}
+        return sorted_dict
+
+    except Exception as e:
+        print(f'Error during sorting dictionary: {str(e)}')
+        return result_dict
 
 
 def scrape_website(website, brand, model, result_dict):
@@ -33,12 +38,14 @@ def scrape_website(website, brand, model, result_dict):
 
 def process_product(product, result_dict, website):
     # Process product information and update the result dictionary with storage+RAM as keys (if exist).
-    storage = product.get('storage', 'N/A')
-    ram = product.get('ram', 'N/A')
-    price = product.get('price', 'N/A')
-    url = product.get('url', 'N/A')
+    storage = product.get('storage')
+    ram = product.get('ram')
+    price = product.get('price')
+    url = product.get('url')
 
     key = f"{storage} + {ram}"
+    if storage is None and ram is None:
+        key = "---"
     result_dict[key][f'{website}_price'] = price
     result_dict[key][f'{website}_url'] = url
 

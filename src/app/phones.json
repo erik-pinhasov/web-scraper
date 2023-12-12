@@ -70,16 +70,6 @@
     "iPhone 15 Pro Max",
     "iPhone SE (3rd Gen)"
   ],
-  "Realme": [
-    "10",
-    "10 Pro Plus",
-    "11 Pro",
-    "C21",
-    "C30s",
-    "C55",
-    "GT Neo 3",
-    "GT3"
-  ],
   "Nokia": [
     "105",
     "110",
@@ -90,14 +80,15 @@
     "G42",
     "NOKIA 8210"
   ],
-  "OnePlus": [
-    "10T",
-    "11",
-    "8T",
-    "9 Pro",
-    "Nord 3",
-    "Nord CE 2 Lite",
-    "Nord CE 3 Lite"
+  "Realme": [
+    "10",
+    "10 Pro Plus",
+    "11 Pro",
+    "C21",
+    "C30s",
+    "C55",
+    "GT Neo 3",
+    "GT3"
   ],
   "vivo": [
     "V23",
@@ -107,6 +98,15 @@
     "Y33s",
     "Y36",
     "Y76"
+  ],
+  "OnePlus": [
+    "10T",
+    "11",
+    "8T",
+    "9 Pro",
+    "Nord 3",
+    "Nord CE 2 Lite",
+    "Nord CE 3 Lite"
   ],
   "Google": [
     "Pixel 6A",
@@ -121,30 +121,30 @@
     "BV4900 Pro",
     "BV6300 Pro"
   ],
-  "EasyPhone": [
-    "NP 01 Plus",
-    "NP 44",
-    "NP04"
-  ],
   "Asus": [
     "ROG Phone 6",
     "ROG Phone 7",
     "Zenfone 10"
   ],
+  "EasyPhone": [
+    "NP 01 Plus",
+    "NP 44",
+    "NP04"
+  ],
   "Phoneline": [
     "F34",
-    "Fhoneline F33"
-  ],
-  "Honor": [
-    "Magic4 Pro"
-  ],
-  "Victurio": [
-    "Flip"
+    "F33"
   ],
   "Slider": [
     "W70"
   ],
+  "Victurio": [
+    "Flip"
+  ],
+  "Honor": [
+    "Magic4 Pro"
+  ],
   "Nothing": [
-    "NOTHING Phone (2)"
+    "Phone (2)"
   ]
 }

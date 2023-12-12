@@ -1,6 +1,6 @@
 import re
 
-SPECIAL_CHARS = ['-', ':', ' 4g', ' 5g', 'ram', '4G', '5G', 'RAM', '‏']
+SPECIAL_CHARS = ['-', ':', ' 4g', ' 5g', 'ram', '4G', '5G', 'RAM', '‏', 'RED']
 PATTERNS = [r'\d+(?:TB|GB)?\+\d+(?:TB|GB)?', r'\b\d+(?:TB|GB)\b', r'בצבע\s+(.+)', r'\bsm \w+\s*', r'[\u0590-\u05FF]+',
             r'\d+W$', r'20[0-9]{2}$']
 
@@ -12,12 +12,10 @@ def get_price_num(text):
 
 def remove_properties(text, to_remove):
     # Removes specified properties from the given text.
-    to_remove = [prop for prop in to_remove]
     to_remove.extend(SPECIAL_CHARS)
-
     non_properties_text = text.strip()
     for prop in to_remove:
-        non_properties_text = non_properties_text.replace(prop, ' ').strip()
+        non_properties_text = re.sub(re.escape(prop), ' ', non_properties_text, flags=re.IGNORECASE).strip()
 
     return non_properties_text
 
@@ -67,6 +65,8 @@ def define_storage_ram(brand, model, text):
         ]
 
         storage, ram = extract_storage_and_ram(storage_and_ram_matches)
+        if 'MB' in storage:
+            storage = None
         if brand == 'Apple':
             ram = add_apple_ram(brand, model)
         return storage, ram
