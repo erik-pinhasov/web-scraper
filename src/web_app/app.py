@@ -1,18 +1,18 @@
 import json
 from flask import Flask, render_template, jsonify, request
-from scrapers.compare_scraper import run_compare_scraper
+from src.scrapers.compare_scraper import run_compare_scraper
+
+PHONES_PATH = 'src/web_app/phones.json'
 
 
-def read_phones_file(file_path='phones.json'):
-    with open(file_path, 'r') as file:
+def read_phones_file():
+    with open(PHONES_PATH, 'r') as file:
         return json.load(file)
 
 
 app = Flask(__name__)
 phones_data = read_phones_file()
 app.json.sort_keys = False
-
-PHONES_FILE_PATH = 'phones.json'
 
 
 @app.route('/')
@@ -44,4 +44,4 @@ def get_comparison():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8000)
+    app.run(host='0.0.0.0', port=5000)

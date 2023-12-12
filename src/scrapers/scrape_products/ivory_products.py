@@ -1,5 +1,5 @@
-from util.data_handler import requests_fetch, pack_data, update_lowest_price, prepare_url
-from util.text_formatter import get_price_num, add_apple_ram, format_model_name, define_storage_ram
+from src.util.data_handler import requests_fetch, pack_data, update_lowest_price, prepare_url
+from src.util.text_formatter import get_price_num, add_apple_ram, format_model_name, define_storage_ram
 import json
 
 SEARCH_URL = 'https://www.ivory.co.il/catalog.php?act=cat&cuts=2735&orderBy=priceLow&q='

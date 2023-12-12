@@ -1,5 +1,5 @@
-from util.data_handler import requests_fetch
-from util.text_formatter import format_model_name
+from src.util.data_handler import requests_fetch
+from src.util.text_formatter import format_model_name
 
 IVORY_URL = 'https://www.ivory.co.il/cellphones.html'
 BRAND_FILTER = 'מותג טלפון סלולרי'
