@@ -17,12 +17,12 @@ def get_filtered_url(json_data, storage, ram):
     elif storage_url:
         return f"{WEB_URL}/{storage_url}?sort=1"
     else:
-        return f"{WEB_URL}?sort=1"
+        return None
 
 
 def compare_type(param, brand, model):
     # Check for matching param (model name or storage/RAM).
-    if 'gb' in param or 'tb' in param:
+    if any(unit in param.casefold() for unit in ['gb', 'tb']):
         return param == model
     else:
         param = format_model_name(brand, param)
@@ -30,9 +30,15 @@ def compare_type(param, brand, model):
 
 
 def get_ksp_url(json_data, brand, param, cat_id):
-    # Get the matching URL for given param (model name or storage/RAM).
-    tags = json_data.get('filter', {}).get(cat_id, {}).get('tags', {})
-    model = next((item for item in tags.values() if compare_type(item.get('name').lower(), brand, param.lower())), None)
+    # Get the matching filtered URL for given param (model name or storage/RAM).
+    # compare between item.name and param scraped (both of them: model name or storage/RAM)
+    filtered_items = json_data.get('filter', {}).get(cat_id, {}).get('tags', {})
+    try:
+        model = next((item for item in filtered_items.values() if
+                      compare_type(item.get('name'), brand, param)), None)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        model = None
     return model['action'] if model else None
 
 
@@ -46,7 +52,7 @@ def check_discount(context, items):
         item['price'] = discount.get('value') if discount else item['price']
 
 
-def get_product_items(model_data, brand):
+def get_product_items(model_data, brand, model_url):
     # Finds the cheapest item for each storage version of the model.
     items = model_data.get('items', [])
     lowest_prices = {}
@@ -55,7 +61,7 @@ def get_product_items(model_data, brand):
         model, storage, ram = get_item_properties(item.get('tags', {}), brand)
         pid = str(item.get('uin', ''))
         price = item.get('price', '')
-        url = get_filtered_url(model_data, storage, ram)
+        url = get_filtered_url(model_data, storage, ram) or model_url
         update_lowest_price(storage, ram, price, url, lowest_prices, pid)
 
     return [pack_data("ksp", brand, model, storage, ram, price, url, pid) for
@@ -67,7 +73,10 @@ def get_item_properties(tags, brand):
     model = tags.get('דגם', '')
     storage = tags.get('נפח אחסון', '')
     ram = tags.get('גודל זכרון', '')
-    return [format_model_name(brand, model), storage if storage else None, ram if ram else add_apple_ram(brand, model)]
+
+    storage = None if 'MB' in storage else storage
+    ram = ram if ram else add_apple_ram(brand, model)
+    return [format_model_name(brand, model), storage, ram]
 
 
 def get_json_data(context, url):
@@ -83,10 +92,10 @@ def get_ksp_products(brand, model):
             browser, context = launch_playwright(pw)
 
             json_data = get_json_data(context, f'{JSON_URL}/category/{"272..573"}')
-            model_url = get_ksp_url(json_data, brand, model, '02261')
+            model_id = get_ksp_url(json_data, brand, model, '02261')
 
-            json_data = get_json_data(context, f'{JSON_URL}/category/{model_url}')
-            products = get_product_items(json_data, brand)
+            json_data = get_json_data(context, f'{JSON_URL}/category/{model_id}')
+            products = get_product_items(json_data, brand, f'{WEB_URL}/{model_id}')
             check_discount(context, products)
 
             close_playwright(browser, context)

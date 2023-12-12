@@ -43,6 +43,12 @@ def find_constraints(result_dict):
     if 'OPPO' in result_dict:
         result_dict['Oppo'] = result_dict.pop('OPPO')
 
+    if 'Nothing' in result_dict:
+        result_dict['Nothing'] = [model.replace("NOTHING ", "").strip() for model in result_dict['Nothing']]
+
+    if 'Phoneline' in result_dict and 'Fhoneline' in result_dict['Phoneline']:
+        result_dict['Phoneline'] = [model.replace("Fhoneline", "").strip() for model in result_dict['Phoneline']]
+
     return result_dict
 
 

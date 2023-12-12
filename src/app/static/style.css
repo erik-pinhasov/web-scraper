@@ -76,23 +76,31 @@ tr:hover {
 }
 
 .brand-image:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
+}
+
+.brand-image.selected {
+    transform: scale(1.2);
+    padding: 0 5px;
+    margin: 15px;
+    box-shadow: 0px 20px 30px 5px #333;
+    border-radius: 15px;
 }
 
 #model-button {
     cursor: pointer;
-    padding: 10px 20px;
-    margin: 5px;
+    padding: 15px 10px;
+    margin: 10px;
     background-color: #3498db;
-    color: #000;
+    font-size: 18px;
     font-weight: bold;
     border: 3px solid #000;
-    border-radius: 5px;
+    border-radius: 20px;
     transition: background-color 0.3s, color 0.3s;
 }
 
 #model-button:hover {
-    background-color: #2980b9;
+    background-color: #6ac5fe;
     color: #fff;
     transform: scale(1.1);
 }

@@ -5,12 +5,14 @@ $(document).ready(function() {
 
     // Brand selection
     $(document).on('click', ".brand-image", function() {
+        $(".brand-image").removeClass("selected");
+        $(this).addClass("selected");
         $("#result-table").empty();
+
         current_brand = $(this).data('brand');
         update_models(current_brand);
         scroll_down();
     });
-
     // Model selection
     $(document).on('click', "#model-container input[name='model']", function() {
         get_comparison(current_brand, $(this).val());
@@ -44,13 +46,24 @@ function get_comparison(brand, model) {
 
     $.get("/get_comparison", { brand, model }, function(data) {
         var title = `<h2 style="font-size: 1.8em;">Results for ${brand} ${model}</h2>`;
-        var table = create_table(data);
-        $(".loader").hide();
-        $("#result-table").append(title, table);
-        scroll_down();
+
+        if ($.isEmptyObject(data)) {
+            // Display a message if data is empty
+            var noResultsMessage = '<p style="font-size: 1.8em;">No results found</p>';
+            $(".loader").hide();
+            $("#result-table").append(noResultsMessage);
+        } else {
+            // Display the table if data is not empty
+            var table = create_table(data);
+            $(".loader").hide();
+            $("#result-table").append(title, table);
+            scroll_down();
+        }
+
         req_in_progress = false;
     });
 }
+
 
 // Create the comparison table
 function create_table(data) {

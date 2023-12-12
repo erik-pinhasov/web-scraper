@@ -34,7 +34,14 @@ def get_items_data(soup, brand, model):
         name = names[i].text.strip()
         storage = storages[i].text.strip() if storages else None
         ram = rams[i].text.strip() if rams else add_apple_ram(brand, model)
-        storage, ram = define_storage_ram(brand, model, name) if storage is None and ram is None else (storage, ram)
+        try:
+            if 'MB' in storage or 'MB' in ram:
+                storage = ram = None
+            else:
+                storage, ram = define_storage_ram(brand, model, name) if storage is None and ram is None \
+                                                                      else (storage, ram)
+        except Exception:
+            storage = ram = None
         price = get_price_num(prices[i].text)
         url = names[i].find('a').get('href')
         update_lowest_price(storage, ram, price, url, lowest_prices)
