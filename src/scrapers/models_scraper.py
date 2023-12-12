@@ -27,7 +27,7 @@ def run_models_scraper():
             ivory_data, ksp_data = ivory_thread.result(), ksp_thread.result()
 
         merged_data = merge_brand_models(ivory_data, ksp_data)
-        export_to_json(merged_data, '../app/phones.json')
+        export_to_json(merged_data, '/src/web_app/phones.json')
         print('phones.json created successfully.')
     except Exception as e:
         print(f'Error during models scraper: {str(e)}')
