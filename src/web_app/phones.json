@@ -24,21 +24,22 @@
   "Xiaomi": [
     "13T",
     "13T Pro",
-    "Note 12S",
     "Poco F5",
     "Poco F5 Pro",
     "Poco X5",
     "Poco X5 Pro",
-    "Redmi 10A",
-    "Redmi 12",
-    "Redmi 12 NFC",
-    "Redmi 12C",
-    "Redmi 13C",
-    "Redmi A2 Plus",
-    "Redmi Note 12",
-    "Redmi Note 12 Pro",
-    "Redmi Note 12 Pro Plus",
-    "Redmi Note 12S"
+    "mi 10A",
+    "mi 12",
+    "mi 12 NFC",
+    "mi 12C",
+    "mi 13C",
+    "mi 13C NFC",
+    "mi 8",
+    "mi A2 Plus",
+    "mi Note 12",
+    "mi Note 12 Pro",
+    "mi Note 12 Pro Plus",
+    "mi Note 12S"
   ],
   "Oppo": [
     "A17k",
@@ -51,8 +52,6 @@
     "Reno 10",
     "Reno 10 Pro",
     "Reno 6",
-    "Reno10",
-    "Reno10 Pro",
     "Reno7",
     "Reno7 Z",
     "Reno8 T"
@@ -63,12 +62,32 @@
     "iPhone 13",
     "iPhone 14",
     "iPhone 14 Plus",
-    "iPhone 14 Pro",
+    "iPhone 14 Pro Max",
     "iPhone 15",
     "iPhone 15 Plus",
     "iPhone 15 Pro",
     "iPhone 15 Pro Max",
     "iPhone SE (3rd Gen)"
+  ],
+  "OnePlus": [
+    "10 Pro",
+    "10T",
+    "11",
+    "8T",
+    "9 Pro",
+    "Nord 3",
+    "Nord CE 2 Lite",
+    "Nord CE 3 Lite",
+    "Nord N20 SE"
+  ],
+  "Google": [
+    "Pixel 6A",
+    "Pixel 7",
+    "Pixel 7 Pro",
+    "Pixel 7A",
+    "Pixel 8",
+    "Pixel 8 Pro",
+    "Pixel Fold"
   ],
   "Nokia": [
     "105",
@@ -77,14 +96,12 @@
     "8210",
     "C32",
     "G11",
-    "G42",
-    "NOKIA 8210"
+    "G42"
   ],
   "Realme": [
     "10",
     "10 Pro Plus",
     "11 Pro",
-    "C21",
     "C30s",
     "C55",
     "GT Neo 3",
@@ -94,57 +111,37 @@
     "V23",
     "V25",
     "V29 Lite",
-    "Y21",
     "Y33s",
     "Y36",
     "Y76"
-  ],
-  "OnePlus": [
-    "10T",
-    "11",
-    "8T",
-    "9 Pro",
-    "Nord 3",
-    "Nord CE 2 Lite",
-    "Nord CE 3 Lite"
-  ],
-  "Google": [
-    "Pixel 6A",
-    "Pixel 7",
-    "Pixel 7A",
-    "Pixel 8",
-    "Pixel 8 Pro",
-    "Pixel Fold"
   ],
   "Blackview": [
     "A80 Plus",
     "BV4900 Pro",
     "BV6300 Pro"
   ],
-  "Asus": [
-    "ROG Phone 6",
-    "ROG Phone 7",
-    "Zenfone 10"
-  ],
   "EasyPhone": [
     "NP 01 Plus",
-    "NP 44",
-    "NP04"
+    "NP 44"
   ],
   "Phoneline": [
-    "F34",
-    "F33"
+    "F33",
+    "F34"
   ],
-  "Slider": [
-    "W70"
+  "Asus": [
+    "ROG Phone 7",
+    "Zenfone 10"
   ],
   "Victurio": [
     "Flip"
   ],
-  "Honor": [
-    "Magic4 Pro"
+  "Slider": [
+    "W70"
   ],
   "Nothing": [
     "Phone (2)"
+  ],
+  "Honor": [
+    "Magic4 Pro"
   ]
 }

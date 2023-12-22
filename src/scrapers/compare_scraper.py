@@ -22,7 +22,7 @@ def sort_product_dict(result_dict):
         return sorted_dict
 
     except Exception as e:
-        print(f'Error during sorting dictionary: {str(e)}')
+        print(f'Error in sort_product_dict function: {str(e)}')
         return result_dict
 
 

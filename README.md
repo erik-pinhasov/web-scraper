@@ -7,7 +7,7 @@ Compare real-time smartphone prices from leading Israelis retailers: KSP, Ivory,
 - **Real-time Price Comparison:** Instantly compare smartphone prices from KSP, Bug, and Ivory.
 - **Playwright and Requests:** Utilize Playwright for interactive scraping and Requests for efficient API-based data retrieval.
 - **Weekly Auto-Update:** Keep your smartphone models up-to-date with a weekly auto-update mechanism.
-- **Efficient Web Scraping:** Optimize efficiency with a maximum of two HTTP requests per comparison.
+- **Efficient Web Scraping:** Optimize efficiency with a maximum of two HTTP requests per comparison (for each website).
 - **Fast Results:** Few second for each comparison. No API and DB used.
 - **Multiple Scraping Techniques:** Utilize various scraping techniques, including XML paths, CSS elements, and API discovery (JSON), to expedite the data retrieval process.
 

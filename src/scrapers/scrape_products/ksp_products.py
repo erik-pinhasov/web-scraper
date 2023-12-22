@@ -98,8 +98,6 @@ def get_ksp_products(brand, model):
             products = get_product_items(json_data, brand, f'{WEB_URL}/{model_id}')
             check_discount(context, products)
 
-            close_playwright(browser, context)
-
         return json.dumps(products, indent=4, ensure_ascii=False)
 
     except Exception as e:

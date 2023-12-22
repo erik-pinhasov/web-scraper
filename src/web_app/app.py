@@ -1,8 +1,10 @@
 import json
 from flask import Flask, render_template, jsonify, request
+from playwright.sync_api import sync_playwright
+
 from src.scrapers.compare_scraper import run_compare_scraper
 
-PHONES_PATH = 'src/web_app/phones.json'
+PHONES_PATH = '../web_app/phones.json'
 
 
 def read_phones_file():
@@ -38,7 +40,7 @@ def get_comparison():
         result = run_compare_scraper(brand, model)
     except Exception as e:
         app.logger.error(f"Error occurred during scraping: {e}")
-        result = {'error': 'An error occurred during scraping.'}
+        result = {'error': 'Error occurred during scraping.'}
 
     return jsonify(result)
 
