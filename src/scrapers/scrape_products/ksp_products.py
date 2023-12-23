@@ -108,6 +108,3 @@ def load_pw_browser():
     with sync_playwright() as pw:
         browser, context = launch_playwright(pw)
         playwright_fetch(context, ROOT_URL)
-
-
-load_pw_browser()

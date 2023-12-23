@@ -1,5 +1,5 @@
 from playwright.sync_api import sync_playwright
-from scrapers.scrape_products.ksp_products import get_json_data
+from ..scrape_products.ksp_products import get_json_data
 from src.util.data_handler import launch_playwright
 from src.util.text_formatter import format_model_name
 

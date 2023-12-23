@@ -15,13 +15,11 @@ Compare real-time smartphone prices from leading Israelis retailers: KSP, Ivory,
 - **Server:** Built with Flask 🌐
 - **Frontend:** Enhanced with JavaScript 🚀, HTML with Jinja 🧑‍🎨, and CSS for a polished UI 🎨
 - **Scraping with Python:** Leveraging Python libraries and tools such as Playwright, Requests, XML paths, and CSS selectors for efficient and comprehensive web scraping 🐍
+- **Concurrency:** Utilizes threading for improved performance and responsiveness ⚡
 
-## ⚙️ Prerequisites
-
-- [Docker](https://www.docker.com/) installed on your machine.
 
 ## 🛠️ How to Run
-
+`Note: Running the server may take 2-3 minutes. This process involves scraping the latest models and loading the browser on start for faster results. Please be patient.`
 ### 1. Clone the Repository
 
 ```bash

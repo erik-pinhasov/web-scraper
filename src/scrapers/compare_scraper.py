@@ -2,9 +2,9 @@ import json
 import concurrent.futures
 from concurrent.futures import ThreadPoolExecutor
 from collections import defaultdict
-from src.scrapers.scrape_products.ksp_products import get_ksp_products
-from src.scrapers.scrape_products.ivory_products import get_ivory_products
-from src.scrapers.scrape_products.bug_products import get_bug_products
+from .scrape_products.ksp_products import get_ksp_products
+from .scrape_products.ivory_products import get_ivory_products
+from .scrape_products.bug_products import get_bug_products
 
 WEBSITES = ['bug', 'ivory', 'ksp']
 SCRAPE_FUNCTIONS = {

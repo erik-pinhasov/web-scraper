@@ -1,8 +1,8 @@
 import json
-from scrapers.scrape_models.ivory_models import get_ivory_models
-from scrapers.scrape_models.ksp_models import get_ksp_models
+from .scrape_models.ivory_models import get_ivory_models
+from .scrape_models.ksp_models import get_ksp_models
 
-PHONES_PATH = '../web_app/phones.json'
+PHONES_PATH = 'src/web_app/phones.json'
 
 
 def merge_brand_models(dict1, dict2):
@@ -21,7 +21,6 @@ def export_to_json(data, filename):
 def run_models_scraper():
     # Run the models scraper for Ivory and KSP in threads, merge the results, and export to JSON.
     try:
-        print('Updating models.json...')
         ksp_models = get_ksp_models()
         ivory_models = get_ivory_models()
         merged_data = merge_brand_models(ksp_models, ivory_models)
