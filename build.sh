@@ -6,14 +6,16 @@ set -o errexit
 PASSWORD=$APP_PASSWORD
 
 # Upgrade pip
-echo "$PASSWORD" | sudo -S pip3 install --upgrade pip
+pip3 install --upgrade pip --user
 
-# Install Python dependencies
-echo "$PASSWORD" | sudo -S pip3 install -r requirements.txt
+# Install Python dependencies locally
+pip3 install -r requirements.txt --user
 
-# Install Playwright without switching to the root user
-PLAYWRIGHT_BROWSERS_PATH=$(npm config get prefix)/lib/node_modules/playwright
+# Install Playwright locally without switching to the root user
 npm install playwright
+
+# Set the PATH to include the locally installed Playwright binaries
+PLAYWRIGHT_BROWSERS_PATH=$(npm bin)/playwright
 export PATH=$PLAYWRIGHT_BROWSERS_PATH:$PATH
 
 # Install Playwright dependencies
