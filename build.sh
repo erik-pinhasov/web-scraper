@@ -2,9 +2,8 @@
 
 set -o errexit
 
-# Prompt the user for a password
-read -sp "Enter your password for installation: " PASSWORD
-echo
+# Extract the password from the environment variable
+PASSWORD=$APP_PASSWORD
 
 # Upgrade pip
 echo "$PASSWORD" | sudo -S pip3 install --upgrade pip
