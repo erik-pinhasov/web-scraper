@@ -1,6 +1,6 @@
 from playwright.sync_api import sync_playwright
-from scrapers.scrape_products.ksp_products import get_json_data
-from src.util.data_handler import launch_playwright, close_playwright
+from ..scrape_products.ksp_products import get_json_data
+from src.util.data_handler import launch_playwright
 from src.util.text_formatter import format_model_name
 
 KSP_URL = 'https://ksp.co.il/m_action/api'
@@ -32,7 +32,5 @@ def get_ksp_models():
         for brand in brands.values():
             brand_models = scrape_brand_models(context, brand)
             result_data[brand.get('name')] = brand_models
-
-        close_playwright(browser, context)
 
     return result_data

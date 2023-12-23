@@ -87,7 +87,7 @@ tr:hover {
     border-radius: 15px;
 }
 
-#model-button {
+.model-button {
     cursor: pointer;
     padding: 15px 10px;
     margin: 10px;
@@ -99,7 +99,7 @@ tr:hover {
     transition: background-color 0.3s, color 0.3s;
 }
 
-#model-button:hover {
+.model-button:hover , .model-button.selected{
     background-color: #6ac5fe;
     color: #fff;
     transform: scale(1.1);

@@ -1,6 +1,6 @@
-from src.util.data_handler import requests_fetch, pack_data, update_lowest_price, prepare_url
+from src.util.data_handler import requests_fetch, pack_data, update_lowest_price, prepare_url, convert_to_json
 from src.util.text_formatter import format_model_name, get_price_num, define_storage_ram
-import json
+
 
 BASE_URL = 'https://www.bug.co.il/'
 SEARCH_URL = 'https://www.bug.co.il/search?key=&filter=,-2_12_108,&q='
@@ -11,7 +11,7 @@ def get_items_data(products, brand, model):
     lowest_prices = {}
     for product in products:
         name = product.select_one('span.c1').text
-        if model == format_model_name(brand, name):
+        if model.lower() == format_model_name(brand, name).lower():
             storage, ram = define_storage_ram(brand, model, name)
             price = get_price_num(product.select_one('span.c2 span').text)
             update_lowest_price(storage, ram, price, product['href'], lowest_prices)
@@ -36,10 +36,14 @@ def scrape_products(search):
 def get_bug_products(brand, model):
     # Get product information for a model with all storages versions available from BUG website.
     try:
-        model = model.replace("Fold5", "Fold 5")
+        model = model.replace("Fold5", "Fold 5").replace("Flip5", "Flip 5").replace("Reno7 Z", "Reno 7Z")
         items = scrape_products(f'{brand} {model}')
-        return json.dumps(get_cheapest_items(items, brand, model), indent=4, ensure_ascii=False)
+        if not items:
+            return convert_to_json([])
+
+        products = get_cheapest_items(items, brand, model)
+        return convert_to_json(products)
 
     except Exception as e:
-        print(f"Error in get_bug_products: {str(e)}")
-        return json.dumps([], indent=4, ensure_ascii=False)
+        print(f"Error in get_bug_products function: {str(e)}")
+        return convert_to_json([])

@@ -1,5 +1,5 @@
-from src.util.data_handler import requests_fetch, pack_data, update_lowest_price, prepare_url
-from src.util.text_formatter import get_price_num, add_apple_ram, format_model_name, define_storage_ram
+from src.util.data_handler import requests_fetch, pack_data, update_lowest_price, prepare_url, convert_to_json
+from src.util.text_formatter import *
 import json
 
 SEARCH_URL = 'https://www.ivory.co.il/catalog.php?act=cat&cuts=2735&orderBy=priceLow&q='
@@ -12,7 +12,7 @@ def get_product_ids(soup, brand, model):
 
     for item in soup.find_all('a', class_='row product-anchor'):
         item_name = item.find('div', class_='col-md-12 col-12 title_product_catalog mb-md-1 main-text-area').text
-        if model == format_model_name(brand, item_name):
+        if model.lower() == format_model_name(brand, item_name).lower():
             price = item.select_one("span.price, span.print-actual-price").text
             unique_prices.setdefault(price, item['data-product-id'])
 
@@ -32,15 +32,16 @@ def get_items_data(soup, brand, model):
 
     for i in range(len(prices)):
         name = names[i].text.strip()
-        storage = storages[i].text.strip() if storages else None
-        ram = rams[i].text.strip() if rams else add_apple_ram(brand, model)
+        storage = extract_storage_text(storages[i].text.strip()) if storages else None
+        ram = extract_storage_text(rams[i].text.strip()) if rams else add_apple_ram(brand, model)
         try:
             if 'MB' in storage or 'MB' in ram:
                 storage = ram = None
             else:
                 storage, ram = define_storage_ram(brand, model, name) if storage is None and ram is None \
                                                                       else (storage, ram)
-        except Exception:
+        except Exception as e:
+            print(f"Error in get_items_data function (ivory_prods): {str(e)}")
             storage = ram = None
         price = get_price_num(prices[i].text)
         url = names[i].find('a').get('href')
@@ -53,15 +54,17 @@ def get_items_data(soup, brand, model):
 def get_ivory_products(brand, model):
     # Get product information for a model with all storage versions available from the Ivory website.
     try:
-        model = model.replace("Fold5", "Fold 5")
-        url = prepare_url(SEARCH_URL, f'{brand.replace("Xiaomi", "")} {model}')
+        model = model.replace("Fold5", "Fold 5").replace("Flip5", "Flip 5").replace("Reno 10", "Reno10")
+        url = prepare_url(SEARCH_URL, f'{brand.replace("Xiaomi", "")} {model.replace("A2 Plus", "A2+")}')
         soup = requests_fetch(url)
         product_ids = get_product_ids(soup, brand, model)
+        if not product_ids:
+            return convert_to_json([])
 
         soup = requests_fetch(f'{COMP_URL}{product_ids}')
         products = get_items_data(soup, brand, model)
         return json.dumps(products, indent=4, ensure_ascii=False)
 
     except Exception as e:
-        print(f"Error in get_ivory_products: {str(e)}")
-        return json.dumps([], indent=4, ensure_ascii=False)
+        print(f"Error in get_ivory_products function: {str(e)}")
+        return convert_to_json([])

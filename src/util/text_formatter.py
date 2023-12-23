@@ -1,8 +1,18 @@
 import re
 
-SPECIAL_CHARS = ['-', ':', ' 4g', ' 5g', 'ram', '4G', '5G', 'RAM', '‏', 'RED']
-PATTERNS = [r'\d+(?:TB|GB)?\+\d+(?:TB|GB)?', r'\b\d+(?:TB|GB)\b', r'בצבע\s+(.+)', r'\bsm \w+\s*', r'[\u0590-\u05FF]+',
-            r'\d+W$', r'20[0-9]{2}$']
+SPECIAL_CHARS = ['-', ':', 'ram', 'RAM', '‏', 'Dual', 'SIM']
+PATTERNS = [r'\b\d+(?:\s*TB|\s*GB)?\s*\+\s*\d+(?:\s*TB|\s*GB)?\b', r'\b\d+(?:\s*TB|\s*GB)\b', r'\d+G', r'\b\d+/', r'\"',
+            r"\'\'", r'\b\d+\.\d+\b', r'בצבע\s+(.+)', r'\bSM\s+(.+)\b', r'[\u0590-\u05FF]+', r'\d+W$', r'20[0-9]{2}$',
+            r'\b(?:4G|5G)\b', r'\b(?:4g|5g)\b']
+
+
+def extract_storage_text(text):
+    # Extracts and returns the numerical storage capacity
+    pattern = r'\b\d+(?:\.\d+)?(?:GB|TB)\b'
+    match = re.search(pattern, text)
+
+    if match:
+        return match.group()
 
 
 def get_price_num(text):
@@ -54,14 +64,16 @@ def define_storage_ram(brand, model, text):
     # Process text for getting storage and RAM information.
     try:
         text = remove_properties(text, [brand, model])
-        storage_and_ram_matches = find_storage_and_ram_matches(text)
+        for pattern in PATTERNS[4:]:  # Without 'TB' and 'GB' patterns
+            text = re.sub(pattern, '', text).strip()
+        matches = find_storage_and_ram(text)
 
-        if not storage_and_ram_matches:
+        if not matches:
             return None, None
 
         storage_and_ram_matches = [
             match + 'GB' if re.match(r'\d+$', match) else match
-            for match in storage_and_ram_matches
+            for match in matches
         ]
 
         storage, ram = extract_storage_and_ram(storage_and_ram_matches)
@@ -72,11 +84,11 @@ def define_storage_ram(brand, model, text):
         return storage, ram
 
     except Exception as e:
-        print(f"An error occurred in define_storage_ram: {e}")
+        print(f"Error in define_storage_ram function: {e}")
         return None, None
 
 
-def find_storage_and_ram_matches(text):
+def find_storage_and_ram(text):
     # Finds storage and RAM storage with regular expressions.
     pattern = r'(\d+(?:TB|GB)?|\d+\+\d+(?:TB|GB)?)'
     return re.findall(pattern, text)

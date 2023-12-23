@@ -1,7 +1,8 @@
 import json
-from concurrent.futures import ThreadPoolExecutor
-from scrapers.scrape_models.ivory_models import get_ivory_models
-from scrapers.scrape_models.ksp_models import get_ksp_models
+from .scrape_models.ivory_models import get_ivory_models
+from .scrape_models.ksp_models import get_ksp_models
+
+PHONES_PATH = 'src/web_app/phones.json'
 
 
 def merge_brand_models(dict1, dict2):
@@ -20,14 +21,10 @@ def export_to_json(data, filename):
 def run_models_scraper():
     # Run the models scraper for Ivory and KSP in threads, merge the results, and export to JSON.
     try:
-        with ThreadPoolExecutor() as executor:
-            ivory_thread = executor.submit(get_ivory_models)
-            ksp_thread = executor.submit(get_ksp_models)
-
-            ivory_data, ksp_data = ivory_thread.result(), ksp_thread.result()
-
-        merged_data = merge_brand_models(ivory_data, ksp_data)
-        export_to_json(merged_data, '/src/web_app/phones.json')
+        ksp_models = get_ksp_models()
+        ivory_models = get_ivory_models()
+        merged_data = merge_brand_models(ksp_models, ivory_models)
+        export_to_json(merged_data, PHONES_PATH)
         print('phones.json created successfully.')
     except Exception as e:
         print(f'Error during models scraper: {str(e)}')

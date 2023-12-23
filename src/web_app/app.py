@@ -1,6 +1,8 @@
 import json
 from flask import Flask, render_template, jsonify, request
 from src.scrapers.compare_scraper import run_compare_scraper
+from src.scrapers.models_scraper import run_models_scraper
+from src.scrapers.scrape_products.ksp_products import load_pw_browser
 
 PHONES_PATH = 'src/web_app/phones.json'
 
@@ -10,9 +12,18 @@ def read_phones_file():
         return json.load(file)
 
 
+def update_models_data():
+    # Scrape for models names and store in phones_data, Used for brands and their models menu
+    global phones_data
+    run_models_scraper()
+    phones_data = read_phones_file()
+
+
 app = Flask(__name__)
-phones_data = read_phones_file()
+phones_data = None
+update_models_data()
 app.json.sort_keys = False
+load_pw_browser()
 
 
 @app.route('/')
@@ -41,6 +52,13 @@ def get_comparison():
         result = {'error': 'An error occurred during scraping.'}
 
     return jsonify(result)
+
+
+@app.route('/trigger_update', methods=['GET'])
+def trigger_update():
+    # Trigger to execute scraper for updating models.json
+    update_models_data()
+    return jsonify({'status': 'complete'})
 
 
 if __name__ == '__main__':

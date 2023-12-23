@@ -6,11 +6,11 @@ ENV PYTHONPATH=/app
 
 COPY . .
 
-RUN pip install --upgrade pip
-
 RUN pip install -r requirements.txt
 
-RUN playwright install && playwright install-deps
+RUN playwright install
+
+RUN playwright install-deps
 
 EXPOSE 5000
 
