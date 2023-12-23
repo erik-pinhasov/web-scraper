@@ -1,10 +1,16 @@
+#!/bin/bash
+
 set -o errexit
 
+# Prompt the user for a password
+read -sp "Enter your password for installation: " PASSWORD
+echo
+
 # Upgrade pip
-pip3 install --upgrade pip
+echo "$PASSWORD" | sudo -S pip3 install --upgrade pip
 
 # Install Python dependencies
-pip3 install -r requirements.txt
+echo "$PASSWORD" | sudo -S pip3 install -r requirements.txt
 
 # Install Playwright without switching to the root user
 PLAYWRIGHT_BROWSERS_PATH=$(npm config get prefix)/lib/node_modules/playwright
