@@ -6,10 +6,13 @@ set -o errexit
 PASSWORD=$APP_PASSWORD
 
 # Upgrade pip
-pip3 install --upgrade pip --user
+pip3 install --upgrade pip
 
-# Install Python dependencies locally
-pip3 install -r requirements.txt --user
+# Activate virtual environment (adjust the path accordingly)
+source /path/to/your/venv/bin/activate
+
+# Install Python dependencies within the virtual environment
+pip3 install -r requirements.txt
 
 # Install Playwright locally without switching to the root user
 npm install playwright
@@ -21,3 +24,6 @@ export PATH=$PLAYWRIGHT_BROWSERS_PATH:$PATH
 # Install Playwright dependencies
 playwright install
 playwright install-deps
+
+# Deactivate the virtual environment
+deactivate
