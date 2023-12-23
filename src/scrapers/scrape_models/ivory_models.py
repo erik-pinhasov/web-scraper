@@ -35,7 +35,7 @@ def find_constraints(result_dict):
         del result_dict['EasyPhone']
 
     if 'Samsung' in result_dict:
-        result_dict['Samsung'] = [model for model in result_dict['Samsung'] if 'Z' not in model]
+        result_dict['Samsung'] = [model for model in result_dict['Samsung'] if 'Z' not in model and 'A04E' not in model]
 
     if 'Poco' in result_dict and 'Xiaomi' in result_dict:
         result_dict['Xiaomi'].extend(['Poco ' + model for model in result_dict.pop('Poco')])

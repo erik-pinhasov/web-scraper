@@ -1,10 +1,9 @@
-import json
-from playwright.sync_api import sync_playwright
 from src.util.text_formatter import add_apple_ram, format_model_name
 from src.util.data_handler import *
 
 JSON_URL = 'https://ksp.co.il/m_action/api'
 WEB_URL = 'https://ksp.co.il/web/cat'
+ROOT_URL = f'{JSON_URL}/category/{"272..573"}'
 
 
 def get_filtered_url(json_data, storage, ram):
@@ -49,7 +48,7 @@ def check_discount(context, items):
 
     for item in items:
         discount = items_prices.get(item['pid'], {}).get('discount')
-        item['price'] = discount.get('value') if discount else item['price']
+        item['price'] = discount.get('value') if discount and discount.get('value') else item['price']
 
 
 def get_product_items(model_data, brand, model_url):
@@ -91,9 +90,8 @@ def get_ksp_products(brand, model):
         with sync_playwright() as pw:
             browser, context = launch_playwright(pw)
 
-            json_data = get_json_data(context, f'{JSON_URL}/category/{"272..573"}')
+            json_data = get_json_data(context, ROOT_URL)
             model_id = get_ksp_url(json_data, brand, model, '02261')
-
             json_data = get_json_data(context, f'{JSON_URL}/category/{model_id}')
             products = get_product_items(json_data, brand, f'{WEB_URL}/{model_id}')
             check_discount(context, products)
@@ -103,3 +101,13 @@ def get_ksp_products(brand, model):
     except Exception as e:
         print(f"Error in get_ksp_products: {str(e)}")
         return json.dumps([], indent=4, ensure_ascii=False)
+
+
+def load_pw_browser():
+    # This function used once when server is up. Used to load Playwright browser on startup to enhance first scrape.
+    with sync_playwright() as pw:
+        browser, context = launch_playwright(pw)
+        playwright_fetch(context, ROOT_URL)
+
+
+load_pw_browser()

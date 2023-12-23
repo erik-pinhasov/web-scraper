@@ -54,9 +54,8 @@ def get_items_data(soup, brand, model):
 def get_ivory_products(brand, model):
     # Get product information for a model with all storage versions available from the Ivory website.
     try:
-        model = model.replace("Fold5", "Fold 5")
-        url = prepare_url(SEARCH_URL, f'{brand.replace("Xiaomi", "")} {model}')
-        print(url)
+        model = model.replace("Fold5", "Fold 5").replace("Flip5", "Flip 5").replace("Reno 10", "Reno10")
+        url = prepare_url(SEARCH_URL, f'{brand.replace("Xiaomi", "")} {model.replace("A2 Plus", "A2+")}')
         soup = requests_fetch(url)
         product_ids = get_product_ids(soup, brand, model)
         if not product_ids:

@@ -1,8 +1,8 @@
 import re
 
-SPECIAL_CHARS = ['-', ':', 'ram', 'RAM', '‏', 'RED', 'Dual', 'SIM']
-PATTERNS = [r'\d+(?:\s*TB|\s*GB)?\s*\+\s*\d+(?:\s*TB|\s*GB)?', r'\b\d+(?:\s*TB|\s*GB)\b', r'\"', r"\'\'",
-            r'\b\d+\.\d+\b', r'בצבע\s+(.+)', r'\bsm \w+\s*', r'[\u0590-\u05FF]+', r'\d+W$', r'20[0-9]{2}$',
+SPECIAL_CHARS = ['-', ':', 'ram', 'RAM', '‏', 'Dual', 'SIM']
+PATTERNS = [r'\b\d+(?:\s*TB|\s*GB)?\s*\+\s*\d+(?:\s*TB|\s*GB)?\b', r'\b\d+(?:\s*TB|\s*GB)\b', r'\d+G', r'\b\d+/', r'\"',
+            r"\'\'", r'\b\d+\.\d+\b', r'בצבע\s+(.+)', r'\bSM\s+(.+)\b', r'[\u0590-\u05FF]+', r'\d+W$', r'20[0-9]{2}$',
             r'\b(?:4G|5G)\b', r'\b(?:4g|5g)\b']
 
 
@@ -64,7 +64,7 @@ def define_storage_ram(brand, model, text):
     # Process text for getting storage and RAM information.
     try:
         text = remove_properties(text, [brand, model])
-        for pattern in PATTERNS[2:]:  # Without 'TB' and 'GB' patterns
+        for pattern in PATTERNS[4:]:  # Without 'TB' and 'GB' patterns
             text = re.sub(pattern, '', text).strip()
         matches = find_storage_and_ram(text)
 

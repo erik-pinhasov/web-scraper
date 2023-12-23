@@ -1,8 +1,7 @@
 import json
 from flask import Flask, render_template, jsonify, request
-from playwright.sync_api import sync_playwright
-
 from src.scrapers.compare_scraper import run_compare_scraper
+from src.scrapers.models_scraper import run_models_scraper
 
 PHONES_PATH = '../web_app/phones.json'
 
@@ -12,8 +11,16 @@ def read_phones_file():
         return json.load(file)
 
 
+def update_models_data():
+    # Scrape for models names and store in phones_data, Used for brands and their models menu
+    global phones_data
+    run_models_scraper()
+    phones_data = read_phones_file()
+
+
 app = Flask(__name__)
-phones_data = read_phones_file()
+phones_data = None
+update_models_data()
 app.json.sort_keys = False
 
 
@@ -40,9 +47,16 @@ def get_comparison():
         result = run_compare_scraper(brand, model)
     except Exception as e:
         app.logger.error(f"Error occurred during scraping: {e}")
-        result = {'error': 'Error occurred during scraping.'}
+        result = {'error': 'An error occurred during scraping.'}
 
     return jsonify(result)
+
+
+@app.route('/trigger_update', methods=['GET'])
+def trigger_update():
+    # Trigger to execute scraper for updating models.json
+    update_models_data()
+    return jsonify({'status': 'complete'})
 
 
 if __name__ == '__main__':

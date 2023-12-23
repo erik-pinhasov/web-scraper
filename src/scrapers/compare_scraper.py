@@ -17,7 +17,13 @@ SCRAPE_FUNCTIONS = {
 def sort_product_dict(result_dict):
     # Sort the product dictionary based on storage and RAM ascending.
     try:
-        keys = sorted(result_dict.keys(), key=lambda x: (float('inf') if 'TB' in x else float(x.split('GB')[0]), x))
+        def get_sort_key(key):
+            if key == '---':
+                return float('inf'), float('inf')
+            storage, ram = key.split(' + ')
+            return float('inf') if 'TB' in storage else float(storage.split('GB')[0]), float(ram.split('GB')[0])
+
+        keys = sorted(result_dict.keys(), key=get_sort_key)
         sorted_dict = {i: result_dict[i] for i in keys}
         return sorted_dict
 

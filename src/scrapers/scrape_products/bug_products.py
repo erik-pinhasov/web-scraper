@@ -29,7 +29,6 @@ def get_cheapest_items(products, brand, model):
 def scrape_products(search):
     # Scrape products from BUG website with search query.
     url = prepare_url(SEARCH_URL, search)
-    print(url)
     soup = requests_fetch(url)
     return soup.find_all('a', class_='bordered-product gray product-cube-inner-2 tpurl')
 
@@ -37,7 +36,7 @@ def scrape_products(search):
 def get_bug_products(brand, model):
     # Get product information for a model with all storages versions available from BUG website.
     try:
-        model = model.replace("Fold5", "Fold 5")
+        model = model.replace("Fold5", "Fold 5").replace("Flip5", "Flip 5").replace("Reno7 Z", "Reno 7Z")
         items = scrape_products(f'{brand} {model}')
         if not items:
             return convert_to_json([])

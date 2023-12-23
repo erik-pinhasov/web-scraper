@@ -15,9 +15,14 @@ $(document).ready(function() {
     });
     // Model selection
     $(document).on('click', "#model-container input[name='model']", function() {
+        $(".model-button").removeClass("selected");
+        $(this).addClass("selected");
         get_comparison(current_brand, $(this).val());
         scroll_down();
     });
+    // Interval for auto models json updating trigger - once a week
+    setInterval(process_models_update, 7 * 24 * 60 * 60 * 1000);
+
 });
 
 // Update models based on selected brand
@@ -28,7 +33,7 @@ function update_models(brand) {
         model_container.empty()
 
         $.each(data.models, function(index, model) {
-            model_container.append('<input id="model-button" type="button" name="model" value="' + model + '">');
+            model_container.append('<input class="model-button" type="button" name="model" value="' + model + '">');
         });
         model_container.show();
     });
@@ -63,7 +68,6 @@ function get_comparison(brand, model) {
         req_in_progress = false;
     });
 }
-
 
 // Create the comparison table
 function create_table(data) {
@@ -110,6 +114,32 @@ function create_price_row(product, row) {
                         (url ? `<br><a href="${url}" target="_blank">Product Link</a>` : '') + '</td>';
         row.append(to_insert);
     }
+}
+
+// Trigger models json update function from server side
+function trigger_update() {
+    return new Promise(function (resolve) {
+        $.get("/trigger_update", function (data) {
+            resolve(data);
+        });
+    });
+}
+
+// Execute models update and reload page when finished
+async function process_models_update() {
+    while (true) {
+        const data = await trigger_update();
+        if (data.status === 'complete') {
+            location.reload(true);
+        } else {
+            await sleep(5000);
+        }
+    }
+}
+
+// Sleep for a given time (in milliseconds)
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function scroll_down() {

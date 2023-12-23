@@ -21,6 +21,7 @@ def export_to_json(data, filename):
 def run_models_scraper():
     # Run the models scraper for Ivory and KSP in threads, merge the results, and export to JSON.
     try:
+        print('Updating models.json...')
         ksp_models = get_ksp_models()
         ivory_models = get_ivory_models()
         merged_data = merge_brand_models(ksp_models, ivory_models)

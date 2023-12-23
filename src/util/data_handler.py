@@ -67,5 +67,4 @@ def launch_playwright(pw):
     return browser, browser.new_context(user_agent=USER_AGENT)
 
 
-
 session = requests.Session()
