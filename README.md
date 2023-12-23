@@ -20,31 +20,42 @@ Compare real-time smartphone prices from leading Israelis retailers: KSP, Ivory,
 
 ## 🛠️ How to Run
 `Note: Running the server may take 2-3 minutes. This process involves scraping the latest models and loading the browser on start for faster results. Please be patient.`
-### 1. Clone the Repository
+### 🌐 Docker Hub
+Fast and simple: you can pull the pre-built Docker image from Docker Hub:
+
+```bash
+docker pull erikpi/web-scraper:local
+docker run -p 5000:5000 erikpi/web-scraper:local
+```
+
+### 🌐 Git & Docker
+### 1. Restart Docker Engine
+#### Windows: (as administrator)
+```bash
+net stop com.docker.service
+net start com.docker.service
+```
+#### Linux:
+```bash
+sudo systemctl restart docker
+```
+
+### 2. Clone the Repository
 
 ```bash
 git clone https://github.com/erik-pinhasov/web-scraper.git
 cd web-scraper
 ```
 
-### 2. Build the Docker Image
+### 3. Build the Docker Image
 ```bash
 docker build -t web-scraper .
 ```
 
-### 3. Run the Docker Container
+### 4. Run the Docker Container
 ```bash
 docker run -p 5000:5000 web-scraper
 ```
 
 Access the application at http://localhost:5000 in your web browser.
 
-### 🌐 Docker Hub
-Alternatively, you can pull the pre-built Docker image from Docker Hub:
-
-```bash
-docker pull erikpi/web-scraper:latest
-docker run -p 5000:5000 erikpi/web-scraper:latest
-```
-
-Access the application at http://localhost:5000 after pulling the image.
