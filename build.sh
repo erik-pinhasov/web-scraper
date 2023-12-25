@@ -6,9 +6,8 @@ pip install --upgrade pip
 # Install additional dependencies
 pip install -r $PROJECT_DIR/requirements.txt
 
-# Install Playwright
-npm install -g playwright
+sudo npm install -g playwright
 
 # Install Playwright dependencies
-playwright install
-playwright install-deps
+sudo playwright install
+sudo playwright install-deps
