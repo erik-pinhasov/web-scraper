@@ -1,7 +1,7 @@
 from playwright.sync_api import sync_playwright
 from ..scrape_products.ksp_products import get_json_data
-from src.util.data_handler import launch_playwright
-from src.util.text_formatter import format_model_name
+from util.data_handler import launch_playwright
+from util.text_formatter import format_model_name
 
 KSP_URL = 'https://ksp.co.il/m_action/api'
 
