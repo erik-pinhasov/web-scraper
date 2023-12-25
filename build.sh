@@ -15,6 +15,5 @@ npm install -g playwright
 
 npx playwright install
 
-cd $PROJECT_DIR/src
-
+export PYTHONPATH=$PROJECT_DIR/src
 ls -l
