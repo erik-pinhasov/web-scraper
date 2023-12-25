@@ -1,8 +1,8 @@
 import json
 from flask import Flask, render_template, jsonify, request
-from src.scrapers.compare_scraper import run_compare_scraper
-from src.scrapers.models_scraper import run_models_scraper
-from src.scrapers.scrape_products.ksp_products import load_pw_browser
+from scrapers.compare_scraper import run_compare_scraper
+from scrapers.models_scraper import run_models_scraper
+from scrapers.scrape_products.ksp_products import load_pw_browser
 
 PHONES_PATH = 'src/web_app/phones.json'
 
