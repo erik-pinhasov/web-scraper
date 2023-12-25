@@ -12,6 +12,5 @@ pip install --upgrade pip
 pip install -r $PROJECT_DIR/requirements.txt
 
 npm install -g playwright
-cd $PROJECT_DIR
 
 npx playwright install
