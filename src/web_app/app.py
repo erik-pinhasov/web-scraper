@@ -1,6 +1,6 @@
 import json
 from flask import Flask, render_template, jsonify, request
-from scrapers.compare_scraper import run_compare_scraper
+from ..scrapers.compare_scraper import run_compare_scraper
 from scrapers.models_scraper import run_models_scraper
 from scrapers.scrape_products.ksp_products import load_pw_browser
 
