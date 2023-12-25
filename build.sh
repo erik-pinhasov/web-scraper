@@ -14,3 +14,4 @@ pip install -r $PROJECT_DIR/requirements.txt
 npm install -g playwright
 
 npx playwright install
+ls -l /opt/render/project/src/web_app/app.py
