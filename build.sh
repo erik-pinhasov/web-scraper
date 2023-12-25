@@ -1,18 +1,17 @@
-cd "$(dirname "${BASH_SOURCE[0]}")" || exit
+PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-# Set Python path
-export PYTHONPATH=./src
+# Set working directory
 
+# Install npm
+apt-get update
+apt-get install -y npm
 # Upgrade pip
 pip install --upgrade pip
 
 # Install additional dependencies
-pip install -r requirements.txt
+pip install -r $PROJECT_DIR/requirements.txt
 
-# Install Playwright
 npm install -g playwright
+cd $PROJECT_DIR
 
-# Install Playwright dependencies (specifying the platform explicitly)
-PLAYWRIGHT_BROWSERS_PATH=./path/to/playwright/browsers/ npm install playwright
-PLAYWRIGHT_BROWSERS_PATH=./path/to/playwright/browsers/ playwright install
-PLAYWRIGHT_BROWSERS_PATH=./path/to/playwright/browsers/ playwright install-deps
+npx playwright install
