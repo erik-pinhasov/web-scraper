@@ -14,8 +14,7 @@ pip install -r $PROJECT_DIR/requirements.txt
 npm install -g playwright
 
 npx playwright install
-ls -l
-echo ------------
-ls -R
-cd $PROJECT_DIR
 
+cd $PROJECT_DIR/src
+
+ls -l
