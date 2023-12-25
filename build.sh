@@ -15,3 +15,5 @@ npm install -g playwright
 
 npx playwright install
 
+cd $PROJECT_DIR
+
