@@ -29,7 +29,23 @@ docker run -p 5000:5000 erikpi/web-scraper:local
 ```
 
 ### 🌐 Git & Docker
-### 1. Restart Docker Engine
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/erik-pinhasov/web-scraper.git
+cd web-scraper
+```
+
+### 2. Build the Docker Image
+```bash
+docker build -t web-scraper .
+```
+
+### 3. Run the Docker Container
+```bash
+docker run -p 5000:5000 web-scraper
+```
+### In case that image build failed try to restart Docker Engine
 #### Windows: (as administrator)
 ```bash
 net stop com.docker.service
@@ -39,23 +55,5 @@ net start com.docker.service
 ```bash
 sudo systemctl restart docker
 ```
-
-### 2. Clone the Repository
-
-```bash
-git clone https://github.com/erik-pinhasov/web-scraper.git
-cd web-scraper
-```
-
-### 3. Build the Docker Image
-```bash
-docker build -t web-scraper .
-```
-
-### 4. Run the Docker Container
-```bash
-docker run -p 5000:5000 web-scraper
-```
-
 Access the application at http://localhost:5000 in your web browser.
 
