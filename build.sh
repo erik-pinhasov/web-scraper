@@ -4,4 +4,3 @@ pip install --upgrade pip
 pip install -r /opt/render/project/requirements.txt
 npm install -g playwright
 npx playwright install
-cd /opt/render/project/src/src
