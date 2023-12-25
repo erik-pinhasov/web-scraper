@@ -1,10 +1,9 @@
-PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
+cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 # Upgrade pip
 pip install --upgrade pip
 
 # Install additional dependencies
-pip install -r $PROJECT_DIR/requirements.txt
+pip install -r requirements.txt
 
 npm install -g playwright
 
