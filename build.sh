@@ -5,3 +5,4 @@ pip install -r /opt/render/project/src/requirements.txt
 npm install -g playwright
 npx playwright install
 cd /opt/render/project/src/src
+ls -l
