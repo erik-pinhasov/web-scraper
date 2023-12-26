@@ -1,5 +1,5 @@
-from src.util.data_handler import requests_fetch, pack_data, update_lowest_price, prepare_url, convert_to_json
-from src.util.text_formatter import *
+from util.data_handler import requests_fetch, pack_data, update_lowest_price, prepare_url, convert_to_json
+from util.text_formatter import *
 import json
 
 SEARCH_URL = 'https://www.ivory.co.il/catalog.php?act=cat&cuts=2735&orderBy=priceLow&q='

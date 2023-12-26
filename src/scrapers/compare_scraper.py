@@ -1,10 +1,9 @@
 import json
-import concurrent.futures
-from concurrent.futures import ThreadPoolExecutor
+import concurrent.futures as cf
 from collections import defaultdict
-from .scrape_products.ksp_products import get_ksp_products
-from .scrape_products.ivory_products import get_ivory_products
-from .scrape_products.bug_products import get_bug_products
+from scrapers.scrape_products.ksp_products import get_ksp_products
+from scrapers.scrape_products.ivory_products import get_ivory_products
+from scrapers.scrape_products.bug_products import get_bug_products
 
 WEBSITES = ['bug', 'ivory', 'ksp']
 SCRAPE_FUNCTIONS = {
@@ -60,10 +59,10 @@ def run_compare_scraper(brand, model):
     # Run the compare scraper for BUG, Ivory and KSP websites, with threads.
     result_dict = defaultdict(lambda: {})
 
-    with ThreadPoolExecutor() as executor:
+    with cf.ThreadPoolExecutor() as executor:
         threads = [executor.submit(scrape_website, website, brand, model, result_dict) for website in WEBSITES]
 
-        for thread in concurrent.futures.as_completed(threads):
+        for thread in cf.as_completed(threads):
             try:
                 thread.result()
             except Exception as e:

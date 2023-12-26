@@ -1,5 +1,5 @@
-from src.util.data_handler import requests_fetch, pack_data, update_lowest_price, prepare_url, convert_to_json
-from src.util.text_formatter import format_model_name, get_price_num, define_storage_ram
+from util.data_handler import requests_fetch, pack_data, update_lowest_price, prepare_url, convert_to_json
+from util.text_formatter import format_model_name, get_price_num, define_storage_ram
 
 
 BASE_URL = 'https://www.bug.co.il/'

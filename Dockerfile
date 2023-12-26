@@ -12,6 +12,5 @@ RUN playwright install
 
 RUN playwright install-deps
 
-EXPOSE 5000
 
 CMD ["python", "src/web_app/app.py"]
