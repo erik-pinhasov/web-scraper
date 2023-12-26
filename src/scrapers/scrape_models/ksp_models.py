@@ -1,5 +1,9 @@
 from playwright.sync_api import sync_playwright
+<<<<<<< HEAD
 from scrapers.scrape_products.ksp_products import get_json_data
+=======
+from ..scrape_products.ksp_products import get_json_data
+>>>>>>> d68f1066095b31befbce54cf99c48690472072f7
 from util.data_handler import launch_playwright
 from util.text_formatter import format_model_name
 
