@@ -1,8 +1,10 @@
 import json
 from .scrape_models.ivory_models import get_ivory_models
 from .scrape_models.ksp_models import get_ksp_models
+import os
 
-PHONES_PATH = 'src/web_app/phones.json'
+current_directory = os.path.dirname(os.path.abspath(__file__))
+PHONES_PATH = os.path.join(current_directory, '../web_app/phones.json')
 
 
 def merge_brand_models(dict1, dict2):

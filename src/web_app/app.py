@@ -1,10 +1,12 @@
 import json
 from flask import Flask, render_template, jsonify, request
-from src.scrapers.compare_scraper import run_compare_scraper
-from src.scrapers.models_scraper import run_models_scraper
-from src.scrapers.scrape_products.ksp_products import load_pw_browser
+from scrapers.compare_scraper import run_compare_scraper
+from scrapers.models_scraper import run_models_scraper
+from scrapers.scrape_products.ksp_products import load_pw_browser
+import os
 
-PHONES_PATH = 'phones.json'
+current_directory = os.path.dirname(os.path.abspath(__file__))
+PHONES_PATH = os.path.join(current_directory, 'phones.json')
 
 
 def read_phones_file():
@@ -15,7 +17,7 @@ def read_phones_file():
 def update_models_data():
     # Scrape for models names and store in phones_data, Used for brands and their models menu
     global phones_data
-    # run_models_scraper()
+    run_models_scraper()
     phones_data = read_phones_file()
 
 
@@ -59,7 +61,5 @@ def trigger_update():
     # Trigger to execute scraper for updating models.json
     update_models_data()
     return jsonify({'status': 'complete'})
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=False, host='0.0.0.0')

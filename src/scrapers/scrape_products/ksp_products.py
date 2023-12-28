@@ -1,5 +1,5 @@
-from src.util.text_formatter import add_apple_ram, format_model_name
-from src.util.data_handler import *
+from util.text_formatter import add_apple_ram, format_model_name
+from util.data_handler import *
 
 JSON_URL = 'https://ksp.co.il/m_action/api'
 WEB_URL = 'https://ksp.co.il/web/cat'
