@@ -2,7 +2,6 @@ import urllib
 import requests
 import json
 from bs4 import BeautifulSoup
-from playwright.sync_api import sync_playwright
 
 USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)' \
              ' Chrome/109.0.0.0 Safari/537.36'
@@ -52,19 +51,6 @@ def requests_fetch(url):
     response = session.get(url)
     content = response.content
     return get_soup(content)
-
-
-def playwright_fetch(context, url):
-    # Fetches and returns the HTML content of the specified URL using Playwright (use for KSP).
-    page = context.new_page()
-    page.goto(url)
-    return get_soup(page.content())
-
-
-def launch_playwright(pw):
-    # Launches a Playwright browser
-    browser = pw.chromium.launch()
-    return browser, browser.new_context(user_agent=USER_AGENT)
 
 
 session = requests.Session()

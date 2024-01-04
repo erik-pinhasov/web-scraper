@@ -6,4 +6,4 @@ __pycache__
 *.pyc
 *.pyo
 *.pyd
-src/web_app/phones.json
+build.bat

@@ -1,20 +1,18 @@
 # 📱 Smartphone Price Scraper
 
-Compare real-time smartphone prices from leading Israelis retailers: KSP, Ivory, and BUG. By seamlessly integrating Playwright and Requests, this tool provides an efficient solution for price monitoring.
+Compare real-time smartphone prices from leading Israelis retailers: KSP, Ivory, and BUG.
 
 ## 🚀 Features
 
-- **Real-time Price Comparison:** Instantly compare smartphone prices from KSP, Bug, and Ivory.
-- **Playwright and Requests:** Utilize Playwright for interactive scraping and Requests for efficient API-based data retrieval.
-- **Weekly Auto-Update:** Keep your smartphone models up-to-date with a weekly auto-update mechanism.
-- **Efficient Web Scraping:** Optimize efficiency with a maximum of two HTTP requests per comparison (for each website).
+- **Real-time Price Comparison:** Prices shown for compares are real-time data.
+- **Weekly Auto-Update:** Weekly auto-update mechanism for brands and models menu.
+- **Efficient Web Scraping:** Max of two HTTP requests per comparison (for each website).
 - **Fast Results:** Few second for each comparison. No API and DB used.
-- **Multiple Scraping Techniques:** Utilize various scraping techniques, including XML paths, CSS elements, and API discovery (JSON), to expedite the data retrieval process.
 
 ## 🔧 **Tech Stack:**
 - **Server:** Built with Flask 🌐
 - **Frontend:** Enhanced with JavaScript 🚀, HTML with Jinja 🧑‍🎨, and CSS for a polished UI 🎨
-- **Scraping with Python:** Leveraging Python libraries and tools such as Playwright, Requests, XML paths, and CSS selectors for efficient and comprehensive web scraping 🐍
+- **Multiple Scraping Techniques:** Utilize various scraping techniques, including XML paths, CSS elements, and API discovery (JSON), to expedite the data retrieval process.
 - **Concurrency:** Utilizes threading for improved performance and responsiveness ⚡
 
 

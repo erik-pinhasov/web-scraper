@@ -2,7 +2,6 @@ import json
 from flask import Flask, render_template, jsonify, request
 from scrapers.compare_scraper import run_compare_scraper
 from scrapers.models_scraper import run_models_scraper
-from scrapers.scrape_products.ksp_products import load_pw_browser
 import os
 
 current_directory = os.path.dirname(os.path.abspath(__file__))
@@ -25,7 +24,6 @@ app = Flask(__name__)
 phones_data = None
 update_models_data()
 app.json.sort_keys = False
-load_pw_browser()
 
 
 @app.route('/')
@@ -61,5 +59,7 @@ def trigger_update():
     # Trigger to execute scraper for updating models.json
     update_models_data()
     return jsonify({'status': 'complete'})
+
+
 if __name__ == "__main__":
     app.run(debug=False, host='0.0.0.0')

@@ -41,10 +41,10 @@ def get_ksp_url(json_data, brand, param, cat_id):
     return model['action'] if model else None
 
 
-def check_discount(context, items):
+def check_discount(items):
     # Check for a discount - price appears in different URL.
     items_pids = ','.join(item['pid'] for item in items)
-    items_prices = get_json_data(context, f'{JSON_URL}/bms/{items_pids}')
+    items_prices = get_json_data(f'{JSON_URL}/bms/{items_pids}')
 
     for item in items:
         discount = items_prices.get(item['pid'], {}).get('discount')
@@ -78,33 +78,23 @@ def get_item_properties(tags, brand):
     return [format_model_name(brand, model), storage, ram]
 
 
-def get_json_data(context, url):
+def get_json_data(url):
     # Scrape KSP whole url page (getting json from it API url).
-    soup = playwright_fetch(context, url)
-    return json.loads(soup.find('pre').string).get('result', {})
+    json_string = requests_fetch(url).string
+    return json.loads(json_string).get('result', {})
 
 
 def get_ksp_products(brand, model):
     # Get product information for a model with all storage versions available from the KSP website.
     try:
-        with sync_playwright() as pw:
-            browser, context = launch_playwright(pw)
-
-            json_data = get_json_data(context, ROOT_URL)
-            model_id = get_ksp_url(json_data, brand, model, '02261')
-            json_data = get_json_data(context, f'{JSON_URL}/category/{model_id}')
-            products = get_product_items(json_data, brand, f'{WEB_URL}/{model_id}')
-            check_discount(context, products)
+        json_data = get_json_data(ROOT_URL)
+        model_id = get_ksp_url(json_data, brand, model, '02261')
+        json_data = get_json_data(f'{JSON_URL}/category/{model_id}')
+        products = get_product_items(json_data, brand, f'{WEB_URL}/{model_id}')
+        check_discount(products)
 
         return json.dumps(products, indent=4, ensure_ascii=False)
 
     except Exception as e:
         print(f"Error in get_ksp_products: {str(e)}")
         return json.dumps([], indent=4, ensure_ascii=False)
-
-
-def load_pw_browser():
-    # This function used once when server is up. Used to load Playwright browser on startup to enhance first scrape.
-    with sync_playwright() as pw:
-        browser, context = launch_playwright(pw)
-        playwright_fetch(context, ROOT_URL)
