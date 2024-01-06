@@ -42,6 +42,7 @@ pip install -r requirements.txt
 
 ### 3. Run the app
 ```bash
-python src/web_app/app.py
+cd src
+python -m web_app.app
 ```
 Access the application at http://localhost:5000 in your web browser.
