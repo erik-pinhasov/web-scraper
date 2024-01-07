@@ -3,6 +3,10 @@ https://github.com/erik-pinhasov/web-scraper/assets/96497924/33527807-225a-427f-
 # 📱 Smartphone Price Scraper
 Compare real-time smartphone prices from Israelis retailers: KSP, Ivory, and BUG.
 
+Deployed this app on free tier server:
+https://shorturl.at/jFPST
+(*Note: free tier server host can cause high waiting time and interruptions, for real results please run locally)
+
 ## 🚀 Features
 
 - **Real-time Price Comparison:** Prices shown for compares are real-time data.
