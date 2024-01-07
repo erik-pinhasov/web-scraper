@@ -33,7 +33,7 @@ def sort_product_dict(result_dict):
 
 
 def scrape_website(website, brand, model, result_dict):
-    # Scrape data from a website and store results of all websites in one dictionary.
+    # Scrap data from a website and store results of all websites in one dictionary.
     try:
         products = json.loads(SCRAPE_FUNCTIONS[website](brand, model))
         for product in products:

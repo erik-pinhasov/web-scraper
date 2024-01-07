@@ -14,7 +14,7 @@ def read_phones_file():
 
 
 def update_models_data():
-    # Scrape for models names and store in phones_data, Used for brands and their models menu
+    # Scrap for models names and store in phones_data, Used for brands and their models menu
     global phones_data
     run_models_scraper()
     phones_data = read_phones_file()

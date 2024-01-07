@@ -7,7 +7,7 @@ COMP_URL = 'https://www.ivory.co.il/catalog_compare.php?ids='
 
 
 def get_product_ids(soup, brand, model):
-    # Scrape matching products url IDs - used in first scrape.
+    # Scrap matching products url IDs - used in first scrape.
     unique_prices = {}
 
     for item in soup.find_all('a', class_='row product-anchor'):
@@ -26,7 +26,7 @@ def get_item_properties(soup):
 
 
 def get_items_data(soup, brand, model):
-    # Scrape data for items matching the specified brand and model - used in second scrape.
+    # Scrap data for items matching the specified brand and model - used in second scrape.
     names, prices, storages, rams = get_item_properties(soup)
     lowest_prices = {}
 

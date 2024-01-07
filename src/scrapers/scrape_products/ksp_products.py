@@ -79,7 +79,7 @@ def get_item_properties(tags, brand):
 
 
 def get_json_data(url):
-    # Scrape KSP whole url page (getting json from it API url).
+    # Scrap KSP whole url page (getting json from it API url).
     json_string = requests_fetch(url).string
     return json.loads(json_string).get('result', {})
 

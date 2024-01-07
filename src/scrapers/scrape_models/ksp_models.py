@@ -5,7 +5,7 @@ KSP_URL = 'https://ksp.co.il/m_action/api'
 
 
 def scrape_ksp_url(cat_id, url):
-    # Scrape KSP whole url page (getting json from API URL).
+    # Scrap KSP whole url page (getting json from API URL).
     json_data = get_json_data(f'{KSP_URL}/category/{url}')
     return json_data.get('filter', {}).get(cat_id, {}).get('tags', {})
 

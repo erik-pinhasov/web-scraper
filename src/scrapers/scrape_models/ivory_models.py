@@ -19,7 +19,7 @@ def find_filter(filter_div, text):
 
 
 def get_filtered_items(url, filter_name):
-    # Scrape URL, finds and extracts items names from a filter section.
+    # Scrap URL, finds and extracts items names from a filter section.
     soup = requests_fetch(url)
     filter_divs = soup.find_all('div', class_='col-12 filtercatalog')
     filter_div = find_filter(filter_divs, filter_name)
