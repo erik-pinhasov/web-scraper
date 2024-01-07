@@ -1,7 +1,7 @@
 https://github.com/erik-pinhasov/web-scraper/assets/96497924/33527807-225a-427f-bc2d-31f753863fc1
 
 # 📱 Smartphone Price Scraper
-Compare real-time smartphone prices from leading Israelis retailers: KSP, Ivory, and BUG.
+Compare real-time smartphone prices from Israelis retailers: KSP, Ivory, and BUG.
 
 ## 🚀 Features
 
@@ -13,8 +13,8 @@ Compare real-time smartphone prices from leading Israelis retailers: KSP, Ivory,
 ## 🔧 **Tech Stack:**
 - **Server:** Built with Flask 🌐
 - **Frontend:** Enhanced with JavaScript 🚀, HTML with Jinja 🧑‍🎨, and CSS for a polished UI 🎨
-- **Multiple Scraping Techniques:** Utilize various scraping techniques, including XML paths, CSS elements, and API discovery (JSON), to expedite the data retrieval process.
-- **Concurrency:** Utilizes threading for improved performance and responsiveness ⚡
+- **Multiple Scraping Techniques:** Utilize various scraping techniques, including Xpaths, CSS elements, and API discovery (JSON), to expedite the data retrieval process.
+- **Multithreading:** Utilizes threading for improved performance and responsiveness ⚡
 
 
 ## 🛠️ How to Run
