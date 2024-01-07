@@ -1,10 +1,10 @@
+import time
 import urllib
 import requests
 import json
 from bs4 import BeautifulSoup
 
-USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)' \
-             ' Chrome/109.0.0.0 Safari/537.36'
+USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
 
 
 def update_lowest_price(storage, ram, price, url, lowest_prices, pid=None):
@@ -46,11 +46,26 @@ def prepare_url(url, param):
     return f'{url}{param}'
 
 
-def requests_fetch(url):
-    # Fetches and returns the HTML content of the specified URL using requests library (use for BUG and Ivory).
-    response = session.get(url)
-    content = response.content
-    return get_soup(content)
+# def requests_fetch(url):
+#     # Fetches and returns the HTML content of the specified URL using requests library (use for BUG and Ivory).
+#     response = session.get(url, headers={'User-Agent': USER_AGENT})
+#     content = response.content
+#     return get_soup(content)
+
+
+def requests_fetch(url, max_attempts=2, delay=2):
+    # Fetches and returns the HTML content of the specified URL using requests library
+    # Waits for a delay between attempts to allow the page to load.
+
+    for _ in range(max_attempts):
+        response = session.get(url, headers={'User-Agent': USER_AGENT})
+        content = response.content
+
+        if '403' not in str(response.status_code):
+            return get_soup(content)
+
+        time.sleep(delay)
+    return None
 
 
 session = requests.Session()

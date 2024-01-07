@@ -10,18 +10,20 @@ body {
     src: url('/static/ScholarlyAmbition.ttf') format('truetype');
 }
 
-h2 {
+h2, h3 {
     color: black;
+    margin: 50px auto 10px auto;
+}
+
+h2 {
     font-weight: bold;
     font-size: 2.7em;
-    margin: 50px auto 10px auto;
 }
 
 h3 {
     font-family: 'ScholarlyAmbition', sans-serif;
     color: #462167;
     font-size: 3em;
-    margin: 50px auto 10px auto;
     text-shadow:
         -1px -1px 0 #fff, 1px -1px 0 #fff,
         -1px 1px 0 #fff, 1px 1px 0 #fff;
@@ -75,16 +77,8 @@ tr:hover {
     margin: 15px;
 }
 
-.brand-image:hover {
+.brand-image:hover, .brand-image.selected {
     transform: scale(1.2);
-}
-
-.brand-image.selected {
-    transform: scale(1.2);
-    padding: 0 5px;
-    margin: 15px;
-    box-shadow: 0px 20px 30px 5px #333;
-    border-radius: 15px;
 }
 
 .model-button {
@@ -99,7 +93,7 @@ tr:hover {
     transition: background-color 0.3s, color 0.3s;
 }
 
-.model-button:hover , .model-button.selected{
+.model-button:hover, .model-button.selected {
     background-color: #6ac5fe;
     color: #fff;
     transform: scale(1.1);
@@ -122,7 +116,7 @@ tr:hover {
 
 @media only screen and (max-width: 800px) {
     body {
-        zoom: 50%;
+        font-size: 80%;
     }
 
     #table-container {
